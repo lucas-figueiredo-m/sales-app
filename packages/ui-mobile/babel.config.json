@@ -1,0 +1,19 @@
+{
+  "presets": [
+    [
+      "@nrwl/react/babel",
+      {
+        "runtime": "automatic",
+        "useBuiltIns": "usage"
+      }
+    ]
+  ],
+  "plugins": [
+    ["babel-plugin-inline-import", {"extensions": [".svg"]}]
+  ],
+  "env": {
+    "test": {
+      "presets": ["module:metro-react-native-babel-preset"]
+    }
+  }
+}

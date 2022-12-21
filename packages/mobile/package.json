@@ -1,0 +1,31 @@
+{
+  "name": "mobile",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "@nozbe/watermelondb": "*",
+    "@nozbe/with-observables": "*",
+    "@react-native-community/masked-view": "*",
+    "@react-navigation/bottom-tabs": "*",
+    "@react-navigation/native": "*",
+    "@react-navigation/stack": "*",
+    "axios": "*",
+    "d3": "*",
+    "i18next": "*",
+    "react": "*",
+    "react-i18next": "*",
+    "react-native": "*",
+    "react-native-gesture-handler": "*",
+    "react-native-reanimated": "*",
+    "react-native-safe-area-context": "*",
+    "react-native-screens": "*",
+    "react-native-svg": "*",
+    "react-native-toast-message": "*",
+    "@testing-library/jest-native": "*",
+    "@testing-library/react-native": "*",
+    "react-native-config": "*",
+    "@react-native-async-storage/async-storage": "*",
+    "metro-config": "*",
+    "react-native-flipper-databases": "*"
+  }
+}

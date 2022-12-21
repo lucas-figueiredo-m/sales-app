@@ -10,11 +10,73 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": ["es2017", "dom"],
+    "lib": [
+      "es2017",
+      "dom"
+    ],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@sales-app/icons/*": [
+        "packages/mobile/src/src/assets/icons/*"
+      ],
+      "@sales-app/types": [
+        "packages/types/src/index.ts"
+      ],
+      "@sales-app/ui-mobile": [
+        "packages/ui-mobile/src/index.ts"
+      ],
+      "@sales-app/utils": [
+        "packages/utils/src/index.ts"
+      ],
+      "@mobile/hooks": [
+        "packages/mobile/src/src/hooks/index.ts"
+      ],
+      // Arrumar para baixo
+      "@mobile/theme": [
+        "packages/mobile/src/src/theme/index.ts"
+      ],
+      "@mobile/theme/fonts": [
+        "packages/mobile/src/src/theme/fonts.ts"
+      ],
+      "@mobile/theme/layout": [
+        "packages/mobile/src/src/theme/layout.ts"
+      ],
+      "@mobile/theme/spacing": [
+        "packages/mobile/src/src/theme/spacing.ts"
+      ],
+      "@mobile/theme/*": [
+        "packages/mobile/src/src/theme/*"
+      ],
+      "@mobile/models": [
+        "packages/mobile/src/src/models"
+      ],
+      "@mobile/storage": [
+        "packages/mobile/src/src/storage"
+      ],
+      "@mobile/services": [
+        "packages/mobile/src/src/services"
+      ],
+      "@mobile/screens": [
+        "packages/mobile/src/src/screens"
+      ],
+      "@mobile/constants": [
+        "packages/mobile/src/src/constants"
+      ],
+      "@mobile/navigator": [
+        "packages/mobile/src/src/navigator"
+      ],
+      "@mobile/utils": [
+        "packages/mobile/src/src/utils"
+      ],
+      "@mobile/locales": [
+        "packages/mobile/src/src/locales"
+      ]
+    }
   },
-  "exclude": ["node_modules", "tmp"]
+  "exclude": [
+    "node_modules",
+    "tmp"
+  ]
 }

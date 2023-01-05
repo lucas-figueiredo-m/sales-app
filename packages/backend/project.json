@@ -40,6 +40,22 @@
         }
       }
     },
+    "migrate": {
+      "executor": "nx:run-commands",
+      "outputs": [],
+      "options": {
+        "command": "npx prisma migrate dev --schema=./src/models/prisma/schema.prisma --name init",
+        "cwd": "packages/backend"
+      }
+    },
+    "gen-client": {
+      "executor": "nx:run-commands",
+      "outputs": [],
+      "options": {
+        "command": "npx prisma generate --schema=./src/models/prisma/schema.prisma",
+        "cwd": "packages/backend"
+      }
+    },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],

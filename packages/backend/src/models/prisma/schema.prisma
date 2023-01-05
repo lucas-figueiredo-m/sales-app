@@ -1,0 +1,36 @@
+datasource db {
+  url      = env("DATABASE_URL")
+  provider = "postgres"
+}
+
+generator client {
+  provider = "prisma-client-js"
+  // output   = "../../node_modules/.prisma/client"
+  output   = "../../../../../node_modules/.prisma/client"
+}
+
+model Employee {
+  id        Int      @id @default(autoincrement())
+  firstName String
+  lastName  String
+  email     String   @unique
+  phone     String   @unique
+  password  String
+  clients   Client[]
+}
+
+model Client {
+  id             Int      @id @default(autoincrement())
+  employeeId     Int
+  employee       Employee @relation(fields: [employeeId], references: [id])
+  companyName    String
+  tradeName      String
+  taxpayerId     String   @unique
+  buyerFirstName String
+  buyerLastName  String
+  phone          String
+  address        String
+  number         String
+  complement     String
+  zipCode        String
+}

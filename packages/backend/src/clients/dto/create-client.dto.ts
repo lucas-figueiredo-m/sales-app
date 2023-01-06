@@ -1,5 +1,6 @@
 import { CreateClient } from '@sales-app/types';
-import { IsNotEmpty } from 'class-validator';
+import { IsNotEmpty, Length } from 'class-validator';
+import { IsValidTaxpayerId } from '../../validators';
 
 export class CreateClientDto implements CreateClient {
   @IsNotEmpty()
@@ -9,6 +10,8 @@ export class CreateClientDto implements CreateClient {
   tradeName: string;
 
   @IsNotEmpty()
+  @Length(14, 14)
+  @IsValidTaxpayerId()
   taxpayerId: string;
 
   @IsNotEmpty()

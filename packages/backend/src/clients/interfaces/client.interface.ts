@@ -7,4 +7,7 @@ export abstract class ClientInterface {
     clientData: CreateClientDto
   ): Promise<{ dto: Client }>;
   abstract getAll(): Promise<{ dto: Client[] }>;
+  abstract getClientsByEmployeeId(
+    employeeId: number
+  ): Promise<{ dto: Client[] }>;
 }

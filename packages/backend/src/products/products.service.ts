@@ -10,9 +10,7 @@ export class ProductsService implements ProductsInterface {
 
   async create(productData: CreateProductType): Promise<Products> {
     return await this.prisma.products.create({
-      data: {
-        ...productData,
-      },
+      data: productData,
     });
   }
 
@@ -20,14 +18,15 @@ export class ProductsService implements ProductsInterface {
     return await this.prisma.products.findMany({ where: { category } });
   }
 
-  async update(productId: number, price: number): Promise<Products> {
+  async update(
+    productId: number,
+    attr: Partial<CreateProductType>
+  ): Promise<Products> {
     return await this.prisma.products.update({
       where: {
         id: productId,
       },
-      data: {
-        price,
-      },
+      data: attr,
     });
   }
 

@@ -17,6 +17,8 @@ model Employee {
   phone     String   @unique
   password  String
   clients   Client[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 }
 
 model Client {
@@ -33,4 +35,27 @@ model Client {
   number         String
   complement     String
   zipCode        String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @default(now()) @updatedAt
+}
+
+model Products {
+  id                     Int                      @id @default(autoincrement())
+  name                   String
+  price                  Int
+  category               String
+  HistoricalProductPrice HistoricalProductPrice[]
+  createdAt              DateTime                 @default(now())
+  updatedAt              DateTime                 @default(now()) @updatedAt
+
+  @@index([category], type: BTree)
+}
+
+model HistoricalProductPrice {
+  id        Int      @id @default(autoincrement())
+  productId Int
+  product   Products @relation(fields: [productId], references: [id])
+  price     Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 }

@@ -34,6 +34,7 @@ export class ClientsService implements ClientInterface {
   async getClientsByEmployeeId(employeeId: number): Promise<{ dto: Client[] }> {
     const clients = await this.prisma.client.findMany({
       where: { employeeId },
+      orderBy: { tradeName: 'asc' },
     });
 
     return {

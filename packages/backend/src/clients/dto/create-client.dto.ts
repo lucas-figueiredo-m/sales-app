@@ -1,5 +1,10 @@
 import { CreateClient } from '@sales-app/types';
-import { IsNotEmpty, Length } from 'class-validator';
+import {
+  IsMobilePhone,
+  IsNotEmpty,
+  IsNumberString,
+  Length,
+} from 'class-validator';
 import { IsValidTaxpayerId } from '../../validators';
 
 export class CreateClientDto implements CreateClient {
@@ -21,16 +26,18 @@ export class CreateClientDto implements CreateClient {
   buyerLastName: string;
 
   @IsNotEmpty()
+  @IsMobilePhone('pt-BR')
   phone: string;
 
   @IsNotEmpty()
   address: string;
 
-  @IsNotEmpty()
   number: string;
 
   complement: string;
 
   @IsNotEmpty()
+  @IsNumberString()
+  @Length(8, 8)
   zipCode: string;
 }

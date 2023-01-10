@@ -4,8 +4,15 @@ import { ClientModule } from '@backend/clients';
 import { EmployeesModule } from './employees';
 import { PrismaModule } from './services/prisma.module';
 import { AuthModule } from './auth/auth.module';
+import { ProductsModule } from './products/products.module';
 
 @Module({
-  imports: [EmployeesModule, ClientModule, PrismaModule, AuthModule],
+  imports: [
+    EmployeesModule,
+    ClientModule,
+    PrismaModule,
+    AuthModule,
+    ProductsModule,
+  ],
 })
 export class AppModule {}

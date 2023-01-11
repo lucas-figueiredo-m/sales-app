@@ -37,6 +37,7 @@ model Client {
   zipCode        String
   createdAt      DateTime @default(now())
   updatedAt      DateTime @default(now()) @updatedAt
+  Orders         Orders[]
 }
 
 model Products {
@@ -47,6 +48,7 @@ model Products {
   HistoricalProductPrice HistoricalProductPrice[]
   createdAt              DateTime                 @default(now())
   updatedAt              DateTime                 @default(now()) @updatedAt
+  OrderItems             OrderItems[]
 
   @@index([category], type: BTree)
 }
@@ -58,4 +60,27 @@ model HistoricalProductPrice {
   price     Int
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
+}
+
+model Orders {
+  id         Int          @id @default(autoincrement())
+  clientId   Int
+  client     Client       @relation(fields: [clientId], references: [id])
+  status     String // CREATED - SENT - IN-PREPARATION - IN-TRANSIT - DELIVERED
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @default(now()) @updatedAt
+  OrderItems OrderItems[]
+}
+
+model OrderItems {
+  id              Int      @id @default(autoincrement())
+  orderId         Int
+  order           Orders   @relation(fields: [orderId], references: [id])
+  productId       Int
+  products        Products @relation(fields: [productId], references: [id])
+  tablePrice      Int
+  negotiatedPrice Int
+  grams           Int
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @default(now()) @updatedAt
 }

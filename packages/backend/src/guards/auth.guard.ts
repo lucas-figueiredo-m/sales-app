@@ -18,8 +18,6 @@ export class AuthGuard implements CanActivate {
         }
       );
 
-      console.log('decoded: ', decoded);
-
       return decoded;
     } catch (error) {
       return false;

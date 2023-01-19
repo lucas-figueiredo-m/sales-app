@@ -1,11 +1,5 @@
 import { CreateOrderProductType, CreateOrderType } from '@sales-app/types';
-import {
-  ArrayMinSize,
-  IsArray,
-  IsNotEmpty,
-  IsNumber,
-  ValidateNested,
-} from 'class-validator';
+import { ArrayMinSize, IsArray, IsNotEmpty, IsNumber } from 'class-validator';
 
 export class CreateOrderDto implements CreateOrderType {
   @IsNotEmpty()
@@ -29,5 +23,5 @@ export class CreateOrderProductDto implements CreateOrderProductType {
 
   @IsNotEmpty()
   @IsNumber()
-  grams: number;
+  orderedWeightInGrams: number;
 }

@@ -28,6 +28,7 @@ model Client {
   companyName    String
   tradeName      String
   taxpayerId     String   @unique
+  type           String
   buyerFirstName String
   buyerLastName  String
   phone          String
@@ -38,6 +39,7 @@ model Client {
   createdAt      DateTime @default(now())
   updatedAt      DateTime @default(now()) @updatedAt
   Orders         Orders[]
+  active         Boolean  @default(true)
 }
 
 model Products {
@@ -45,6 +47,7 @@ model Products {
   name                   String
   price                  Int
   category               String
+  type                   String
   HistoricalProductPrice HistoricalProductPrice[]
   createdAt              DateTime                 @default(now())
   updatedAt              DateTime                 @default(now()) @updatedAt
@@ -63,24 +66,29 @@ model HistoricalProductPrice {
 }
 
 model Orders {
-  id         Int          @id @default(autoincrement())
-  clientId   Int
-  client     Client       @relation(fields: [clientId], references: [id])
-  status     String // CREATED - SENT - IN-PREPARATION - IN-TRANSIT - DELIVERED
-  createdAt  DateTime     @default(now())
-  updatedAt  DateTime     @default(now()) @updatedAt
-  OrderItems OrderItems[]
+  id                  Int          @id @default(autoincrement())
+  clientId            Int
+  client              Client       @relation(fields: [clientId], references: [id])
+  status              String // CREATED - SENT - IN-PREPARATION - IN-TRANSIT - DELIVERED
+  estimatedOrderPrice Int
+  orderTotalPrice     Int?
+  createdAt           DateTime     @default(now())
+  updatedAt           DateTime     @default(now()) @updatedAt
+  OrderItems          OrderItems[]
 }
 
 model OrderItems {
-  id              Int      @id @default(autoincrement())
-  orderId         Int
-  order           Orders   @relation(fields: [orderId], references: [id])
-  productId       Int
-  products        Products @relation(fields: [productId], references: [id])
-  tablePrice      Int
-  negotiatedPrice Int
-  grams           Int
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @default(now()) @updatedAt
+  id                         Int      @id @default(autoincrement())
+  orderId                    Int
+  order                      Orders   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId                  Int
+  products                   Products @relation(fields: [productId], references: [id], onDelete: Cascade)
+  tablePrice                 Int
+  negotiatedPrice            Int
+  orderedWeightInGrams       Int
+  deliveredWeightInGrams     Int?
+  estimatedProductTotalPrice Int
+  productTotalPrice          Int?
+  createdAt                  DateTime @default(now())
+  updatedAt                  DateTime @default(now()) @updatedAt
 }

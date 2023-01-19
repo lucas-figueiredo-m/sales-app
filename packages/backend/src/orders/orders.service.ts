@@ -1,56 +1,159 @@
 import { Injectable } from '@nestjs/common';
-import { OrderItems, Orders } from '@prisma/client';
-import { CreateOrderType, OrderData, OrderStatus } from '@sales-app/types';
+import {
+  UpdateOrderProductType,
+  CreateOrderType,
+  OrderData,
+  OrderStatus,
+  UpdateOrderType,
+} from '@sales-app/types';
 import { PrismaService } from '../services/prisma.service';
 import { OrdersInterface } from './interfaces';
 
 @Injectable()
 export class OrdersService implements OrdersInterface {
   constructor(private prisma: PrismaService) {}
+
+  private async getProductsPriceListById(productIdList: { id: number }[]) {
+    return await this.prisma.products.findMany({
+      where: {
+        OR: productIdList,
+      },
+      select: {
+        id: true,
+        price: true,
+      },
+    });
+  }
+
+  private async processOrderData(orderData: UpdateOrderProductType[]) {
+    const productPriceList = await this.getProductsPriceListById(
+      orderData.map((product) => ({
+        id: product.productId,
+      }))
+    );
+
+    return orderData.map((product) => ({
+      ...(product.id && { id: product.id }),
+      productId: product.productId,
+      negotiatedPrice: product.negotiatedPrice,
+      orderedWeightInGrams: product.orderedWeightInGrams,
+      tablePrice: productPriceList.find(
+        (productPrice) => productPrice.id === product.productId
+      ).price,
+      estimatedProductTotalPrice:
+        (product.negotiatedPrice * product.orderedWeightInGrams) / 1000,
+    }));
+  }
+
   async create(orderData: CreateOrderType): Promise<void> {
+    const processedOrderData = await this.processOrderData(orderData.products);
+
     const order = await this.prisma.orders.create({
       data: {
         clientId: orderData.clientId,
         status: OrderStatus.created,
-      },
-    });
-
-    const productPrices = await this.prisma.products.findMany({
-      where: {
-        OR: orderData.products.map((product) => ({
-          id: product.productId,
-        })),
+        estimatedOrderPrice: processedOrderData.reduce(
+          (prev, curr) => prev + curr.estimatedProductTotalPrice,
+          0
+        ),
       },
     });
 
     await this.prisma.orderItems.createMany({
-      data: orderData.products.map((product) => ({
+      data: processedOrderData.map((processedProduct) => ({
+        ...processedProduct,
         orderId: order.id,
-        productId: product.productId,
-        negotiatedPrice: product.negotiatedPrice,
-        grams: product.grams,
-        tablePrice: productPrices.find(
-          (productPrice) => productPrice.id === product.productId
-        ).price,
       })),
     });
   }
-  async getById(
-    orderId: number
-  ): Promise<Orders & { OrderItems: OrderItems[] }> {
+  async getById(orderId: number): Promise<OrderData> {
     return await this.prisma.orders.findFirst({
       where: {
         id: orderId,
       },
       include: {
         OrderItems: true,
+        client: true,
       },
     });
   }
-  update(orderId: number, orderData: CreateOrderType): Promise<OrderData> {
-    throw new Error('Method not implemented.');
+
+  async getClientOrders(clientId: number): Promise<OrderData[]> {
+    return await this.prisma.orders.findMany({
+      where: {
+        clientId,
+      },
+      include: {
+        OrderItems: true,
+        client: true,
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
   }
-  delete(orderId: number): Promise<void> {
-    throw new Error('Method not implemented.');
+
+  async getEmployeeOrders(employeeId: number): Promise<OrderData[]> {
+    return await this.prisma.orders.findMany({
+      where: {
+        client: {
+          employeeId,
+        },
+      },
+      include: {
+        OrderItems: true,
+        client: true,
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+  }
+
+  async update(orderId: number, orderData: UpdateOrderType): Promise<void> {
+    const processedOrderData = await this.processOrderData(orderData.products);
+
+    const orderItemsToUpdate = processedOrderData.filter((order) => !!order.id);
+    const orderItemsToCreate = processedOrderData.filter((order) => !order.id);
+
+    await this.prisma.$transaction([
+      ...orderItemsToUpdate.map((product) =>
+        this.prisma.orderItems.update({
+          where: {
+            id: product.id,
+          },
+          data: {
+            negotiatedPrice: product.negotiatedPrice,
+            orderedWeightInGrams: product.orderedWeightInGrams,
+            estimatedProductTotalPrice:
+              (product.negotiatedPrice * product.orderedWeightInGrams) / 1000,
+          },
+        })
+      ),
+      this.prisma.orderItems.createMany({
+        data: orderItemsToCreate.map((newOrder) => ({ ...newOrder, orderId })),
+      }),
+    ]);
+
+    const sum = await this.prisma.orderItems.aggregate({
+      _sum: {
+        estimatedProductTotalPrice: true,
+      },
+      where: {
+        orderId,
+      },
+    });
+
+    await this.prisma.orders.update({
+      where: { id: orderId },
+      data: { estimatedOrderPrice: sum._sum.estimatedProductTotalPrice },
+    });
+  }
+  async delete(orderId: number): Promise<void> {
+    await this.prisma.orders.delete({
+      where: {
+        id: orderId,
+      },
+    });
   }
 }

@@ -10,4 +10,6 @@ export abstract class ClientInterface {
   abstract getClientsByEmployeeId(
     employeeId: number
   ): Promise<{ dto: Client[] }>;
+  abstract deactivateClient(clientId: number): Promise<Client>;
+  abstract activateClient(clientId: number): Promise<Client>;
 }

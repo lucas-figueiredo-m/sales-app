@@ -5,7 +5,7 @@ import {
   IsNumberString,
   Length,
 } from 'class-validator';
-import { IsValidTaxpayerId } from '../../validators';
+import { IsValidTaxpayerId, IsValidClientType } from '../../validators';
 
 export class CreateClientDto implements CreateClient {
   @IsNotEmpty()
@@ -31,6 +31,10 @@ export class CreateClientDto implements CreateClient {
 
   @IsNotEmpty()
   address: string;
+
+  @IsNotEmpty()
+  @IsValidClientType()
+  type: string;
 
   number: string;
 

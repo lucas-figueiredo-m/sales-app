@@ -1,6 +1,6 @@
-import { Client } from '@prisma/client';
+import { Client, Prisma } from '@prisma/client';
 import { PrismaService } from '../services';
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { ClientInterface } from './interfaces/client.interface';
 import { CreateClientDto } from './dto';
 
@@ -11,16 +11,24 @@ export class ClientsService implements ClientInterface {
     employeeId: number,
     clientData: CreateClientDto
   ): Promise<{ dto: Client }> {
-    const client = await this.prisma.client.create({
-      data: {
-        employeeId,
-        ...clientData,
-      },
-    });
+    try {
+      const client = await this.prisma.client.create({
+        data: {
+          employeeId,
+          ...clientData,
+        },
+      });
 
-    return {
-      dto: client,
-    };
+      return {
+        dto: client,
+      };
+    } catch (error) {
+      if (!(error instanceof Prisma.PrismaClientKnownRequestError)) throw error;
+
+      if (error.code !== 'P2002') throw error;
+
+      throw new BadRequestException('Client already exists');
+    }
   }
 
   async getAll(): Promise<{ dto: Client[] }> {
@@ -40,5 +48,19 @@ export class ClientsService implements ClientInterface {
     return {
       dto: clients,
     };
+  }
+
+  async deactivateClient(clientId: number) {
+    return await this.prisma.client.update({
+      where: { id: clientId },
+      data: { active: false },
+    });
+  }
+
+  async activateClient(clientId: number) {
+    return await this.prisma.client.update({
+      where: { id: clientId },
+      data: { active: true },
+    });
   }
 }

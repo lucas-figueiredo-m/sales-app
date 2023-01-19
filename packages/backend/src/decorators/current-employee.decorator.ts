@@ -8,7 +8,5 @@ export const CurrentEmployee = createParamDecorator<
 >((_: never, context: ExecutionContext) => {
   const req = context.switchToHttp().getRequest();
 
-  console.log('req: ', req.user);
-
   return req.user as DecodedJwt;
 });

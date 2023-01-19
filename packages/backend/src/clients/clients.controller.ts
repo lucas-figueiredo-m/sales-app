@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Patch, Post, Query } from '@nestjs/common';
 import { DecodedJwt } from '@sales-app/types';
 import { CurrentEmployee } from '../decorators/current-employee.decorator';
 import { CreateClientDto } from './dto';
@@ -25,5 +25,17 @@ export class ClientsController {
       body
     );
     return client;
+  }
+
+  @Patch('/deactivate')
+  // TODO: validate if employeeId matches employeeId from request
+  async deactivateClient(@Query('id') id: string) {
+    return this.clientsRepository.deactivateClient(parseInt(id));
+  }
+
+  @Patch('/activate')
+  // TODO: validate if employeeId matches employeeId from request
+  async activateClient(@Query('id') id: string) {
+    return this.clientsRepository.activateClient(parseInt(id));
   }
 }

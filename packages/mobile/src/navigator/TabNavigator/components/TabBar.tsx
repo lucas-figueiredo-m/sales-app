@@ -5,7 +5,7 @@ import { Svg, Path } from 'react-native-svg';
 import { line, curveBasis } from 'd3';
 import { Colors } from '@mobile/theme';
 import { Tab } from './Tab';
-import { Plus } from '@sales-app/icons/index';
+import { Plus } from 'packages/mobile/src/assets/icons/index';
 import { ModalRoutes } from '@sales-app/types';
 import { SVG } from '@sales-app/ui-mobile';
 

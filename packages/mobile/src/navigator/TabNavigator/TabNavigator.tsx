@@ -1,20 +1,26 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Label, SVG } from '@sales-app/ui-mobile';
-import { Home, Menu, People, UserAdd, Document } from '@sales-app/icons/index';
+import {
+  Home,
+  Menu,
+  People,
+  UserAdd,
+  Document,
+} from 'packages/mobile/src/assets/icons/index';
 import React from 'react';
 import {
   ClientsScreen,
   HomeScreen,
   MenuScreen,
   OrdersScreen,
-} from '@mobile/screens';
+} from 'packages/mobile/src/screens';
 import { TabParams, TabRoutes } from './TabTypes';
 
 import { TabBar } from './components/TabBar';
 import { Colors } from '@mobile/theme';
 import { useTranslation, useRootNavigator, useTheme } from '@mobile/hooks';
 import { Pressable, StyleSheet } from 'react-native';
-import { defaultHitSlop } from '@mobile/constants';
+import { defaultHitSlop } from 'packages/mobile/src/constants';
 import { ModalRoutes } from '@sales-app/types';
 
 const styles = StyleSheet.create({

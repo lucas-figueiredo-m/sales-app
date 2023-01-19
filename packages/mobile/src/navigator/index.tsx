@@ -2,7 +2,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { rootNavigationRef } from '@mobile/hooks';
 import React from 'react';
-import { AddOrderScreen } from '@mobile/screens';
+import { AddOrderScreen } from 'packages/mobile/src/screens';
 import { modalOptions } from './config';
 import NewClientStack from './NewClientStack/NewClientStack';
 import { MainRoutes, MainStackParams, ModalRoutes } from './RouterTypes';

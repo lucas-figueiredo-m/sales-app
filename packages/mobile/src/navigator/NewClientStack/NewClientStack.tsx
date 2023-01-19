@@ -3,7 +3,7 @@ import React from 'react';
 import {
   RegisterEmployeesScreen,
   RegisterMerchantScreen,
-} from '@mobile/screens';
+} from 'packages/mobile/src/screens';
 import { Colors } from '@mobile/theme';
 import { ClientParams, ClientRoutes } from './NewClientTypes';
 

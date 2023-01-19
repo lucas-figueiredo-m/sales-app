@@ -27,6 +27,7 @@
     "@react-native-async-storage/async-storage": "*",
     "metro-config": "*",
     "react-native-flipper-databases": "*",
-    "react-native-flipper": "*"
+    "react-native-flipper": "*",
+    "@prisma/client": "*"
   }
 }

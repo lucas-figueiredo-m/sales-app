@@ -1,5 +1,5 @@
 import { Label, SVG } from '@sales-app/ui-mobile';
-import { defaultHitSlop } from '@mobile/constants';
+import { defaultHitSlop } from 'packages/mobile/src/constants';
 import React from 'react';
 import { View, Pressable } from 'react-native';
 import { Translation } from '@sales-app/types';

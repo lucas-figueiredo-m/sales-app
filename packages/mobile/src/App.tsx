@@ -5,7 +5,7 @@ import { StatusBar, View } from 'react-native';
 // import { Client, columns, database, tables } from 'storage';
 // import { ClientCard } from 'components';
 import '@mobile/locales';
-import { Router } from '@mobile/navigator';
+import { Router } from 'packages/mobile/src/navigator';
 import Toast from 'react-native-toast-message';
 import { toastConfig } from '@mobile/utils';
 // const Clients = database.get<Client>(tables.client).query().observe()

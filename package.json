@@ -16,7 +16,7 @@
     "@nestjs/platform-express": "^9.0.0",
     "@nozbe/watermelondb": "^0.24.0",
     "@nozbe/with-observables": "^1.4.1",
-    "@prisma/client": "^4.8.0",
+    "@prisma/client": "^4.9.0",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-navigation/bottom-tabs": "^6.5.2",
     "@react-navigation/native": "^6.1.1",

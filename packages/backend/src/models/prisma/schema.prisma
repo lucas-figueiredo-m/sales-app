@@ -70,7 +70,7 @@ model Orders {
   clientId            Int
   client              Client       @relation(fields: [clientId], references: [id])
   status              String // CREATED - SENT - IN-PREPARATION - IN-TRANSIT - DELIVERED
-  estimatedOrderPrice Int
+  estimatedOrderPrice Float
   orderTotalPrice     Int?
   createdAt           DateTime     @default(now())
   updatedAt           DateTime     @default(now()) @updatedAt
@@ -87,8 +87,9 @@ model OrderItems {
   negotiatedPrice            Int
   orderedWeightInGrams       Int
   deliveredWeightInGrams     Int?
-  estimatedProductTotalPrice Int
+  estimatedProductTotalPrice Float
   productTotalPrice          Int?
+  notes                      String   @default("")
   createdAt                  DateTime @default(now())
   updatedAt                  DateTime @default(now()) @updatedAt
 }

@@ -10,10 +10,12 @@ import { PrismaService } from '../services/prisma.service';
 import { OrdersInterface } from './interfaces';
 
 @Injectable()
-export class OrdersService implements OrdersInterface {
-  constructor(private prisma: PrismaService) {}
+export class OrdersService extends OrdersInterface {
+  constructor(private prisma: PrismaService) {
+    super();
+  }
 
-  private async getProductsPriceListById(productIdList: { id: number }[]) {
+  protected async getProductsPriceListById(productIdList: { id: number }[]) {
     return await this.prisma.products.findMany({
       where: {
         OR: productIdList,
@@ -25,7 +27,7 @@ export class OrdersService implements OrdersInterface {
     });
   }
 
-  private async processOrderData(orderData: UpdateOrderProductType[]) {
+  protected async processOrderData(orderData: UpdateOrderProductType[]) {
     const productPriceList = await this.getProductsPriceListById(
       orderData.map((product) => ({
         id: product.productId,
@@ -34,6 +36,7 @@ export class OrdersService implements OrdersInterface {
 
     return orderData.map((product) => ({
       ...(product.id && { id: product.id }),
+      ...(product.notes && { notes: product.notes }),
       productId: product.productId,
       negotiatedPrice: product.negotiatedPrice,
       orderedWeightInGrams: product.orderedWeightInGrams,
@@ -127,6 +130,7 @@ export class OrdersService implements OrdersInterface {
             orderedWeightInGrams: product.orderedWeightInGrams,
             estimatedProductTotalPrice:
               (product.negotiatedPrice * product.orderedWeightInGrams) / 1000,
+            notes: product.notes,
           },
         })
       ),

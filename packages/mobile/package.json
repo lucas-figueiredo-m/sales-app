@@ -28,6 +28,11 @@
     "metro-config": "*",
     "react-native-flipper-databases": "*",
     "react-native-flipper": "*",
-    "@prisma/client": "*"
+    "@prisma/client": "*",
+    "react-hook-form": "*",
+    "validator": "*",
+    "react-native-keychain": "*",
+    "axios-logger": "*",
+    "react-native-permissions": "*"
   }
 }

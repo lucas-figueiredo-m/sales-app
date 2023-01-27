@@ -27,6 +27,9 @@ target 'Mobile' do
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
+  permissions_path = '../node_modules/react-native-permissions/ios'
+
+  pod 'Permission-FaceID', :path => "#{permissions_path}/FaceID"
 
   # NOTE: Do not remove, needed to keep WatermelonDB compiling:
   pod 'React-jsi', :path => '../node_modules/react-native/ReactCommon/jsi', :modular_headers => true

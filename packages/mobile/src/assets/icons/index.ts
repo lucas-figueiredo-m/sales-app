@@ -7,6 +7,7 @@ import RadioOff from './radio-off.svg';
 import RadioOn from './radio-on.svg';
 import UserAdd from './user-add.svg';
 import WiFiOff from './wifi-off.svg';
+import Settings from './settings.svg';
 import X from './x.svg';
 
 export {
@@ -20,4 +21,5 @@ export {
   UserAdd,
   WiFiOff,
   X,
+  Settings,
 };

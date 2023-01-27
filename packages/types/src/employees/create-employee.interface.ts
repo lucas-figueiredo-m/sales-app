@@ -9,4 +9,6 @@ export type EmployeeDatabase = {
 
 export type CreateEmployee = Omit<EmployeeDatabase, 'id'>;
 
-export type Employee = Omit<EmployeeDatabase, 'password'>;
+export type Employee = Omit<EmployeeDatabase, 'password'> & {
+  access_token: string;
+};

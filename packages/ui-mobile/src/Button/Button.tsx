@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  ActivityIndicator,
   Pressable,
   PressableProps,
   StyleProp,
@@ -8,7 +9,7 @@ import {
 } from 'react-native';
 import { Label } from '@sales-app/ui-mobile';
 import { Colors } from '@mobile/theme';
-import { useTheme } from '@mobile/hooks';
+import { createThemedStyles, useThemedStyles } from '@mobile/hooks';
 import { Translation } from '@sales-app/types';
 
 interface ButtonProps extends PressableProps {
@@ -17,6 +18,7 @@ interface ButtonProps extends PressableProps {
   style?: StyleProp<ViewStyle>;
   labelStyle?: StyleProp<TextStyle>;
   labelColor?: Colors;
+  loading?: boolean;
 }
 
 const ButtonBase: React.FC<ButtonProps> = ({
@@ -25,29 +27,34 @@ const ButtonBase: React.FC<ButtonProps> = ({
   labelStyle,
   labelColor,
   style,
+  loading = false,
   ...props
 }) => {
   return (
     <Pressable {...props} style={[style, { backgroundColor }]}>
-      <Label.H3 t={t} color={labelColor} style={labelStyle} />
+      {loading ? (
+        <ActivityIndicator size="small" color={labelColor} />
+      ) : (
+        <Label.H3 t={t} color={labelColor} style={labelStyle} />
+      )}
     </Pressable>
   );
 };
 
 const Large: React.FC<ButtonProps> = (props) => {
-  const { Layout, Spacing } = useTheme();
-  return (
-    <ButtonBase
-      {...props}
-      style={[
-        Layout.sizes.fullWidth,
-        Spacing.paddings.vertical.sm,
-        Layout.alignment.center,
-        Spacing.border.md,
-      ]}
-    />
-  );
+  const styles = useThemedStyles(themedStyles);
+  return <ButtonBase {...props} style={styles.largeButton} />;
 };
+
+const themedStyles = createThemedStyles(({ colors, spacing, width }) => ({
+  root: {},
+  largeButton: {
+    width: '100%',
+    paddingVertical: spacing.sm,
+    alignItems: 'center',
+    borderRadius: spacing.sm,
+  },
+}));
 
 export const Button = {
   Large,

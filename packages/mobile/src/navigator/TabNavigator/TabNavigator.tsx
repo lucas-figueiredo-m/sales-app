@@ -21,7 +21,7 @@ import { Colors } from '@mobile/theme';
 import { useTranslation, useRootNavigator, useTheme } from '@mobile/hooks';
 import { Pressable, StyleSheet } from 'react-native';
 import { defaultHitSlop } from 'packages/mobile/src/constants';
-import { ModalRoutes } from '@sales-app/types';
+import { MainRoutes } from '@sales-app/types';
 
 const styles = StyleSheet.create({
   rightButtonContainer: {
@@ -70,7 +70,7 @@ export const TabNavigator: React.FC = () => {
           headerShown: true,
           headerRight: () => (
             <Pressable
-              onPress={() => rootNavigator.navigate(ModalRoutes.AddClient)}
+              onPress={() => rootNavigator.navigate(MainRoutes.AddClient)}
               hitSlop={defaultHitSlop}
               style={styles.rightButtonContainer}
             >

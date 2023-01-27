@@ -1,5 +1,4 @@
 apply plugin: "com.android.application"
-apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 
 import com.android.build.OutputFile
 import org.apache.tools.ant.taskdefs.condition.Os
@@ -83,9 +82,19 @@ project.ext.react = [
     // the entry file for bundle generation
     entryFile: "src/main.tsx",
     enableHermes: true,  // clean and rebuild if changing
+    devDisabledInStaging: true,
+    bundleInStaging: true
 ]
 
 apply from: "../../node_modules/react-native/react.gradle"
+
+project.ext.envConfigFiles = [
+    debug: ".env.development",
+    release: ".env.production",
+    staging: ".env.staging",
+]
+
+apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 
 /**
  * Set this to true to create two separate APKs instead of one:
@@ -240,6 +249,12 @@ android {
             // Detox-specific additions to pro-guard
             proguardFile "${rootProject.projectDir}/../node_modules/detox/android/detox/proguard-rules-app.pro"
             
+        }
+        staging {
+            signingConfig signingConfigs.debug
+            minifyEnabled enableProguardInReleaseBuilds
+            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            proguardFile "${rootProject.projectDir}/../node_modules/detox/android/detox/proguard-rules-app.pro"
         }
     }
 

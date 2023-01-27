@@ -6,7 +6,7 @@ import { line, curveBasis } from 'd3';
 import { Colors } from '@mobile/theme';
 import { Tab } from './Tab';
 import { Plus } from 'packages/mobile/src/assets/icons/index';
-import { ModalRoutes } from '@sales-app/types';
+import { MainRoutes } from '@sales-app/types';
 import { SVG } from '@sales-app/ui-mobile';
 
 const lineGenerator = line()
@@ -127,7 +127,7 @@ export const TabBar: React.FC<BottomTabBarProps> = ({
 
       <TouchableOpacity
         style={styles.floatingButton}
-        onPress={() => navigation.navigate(ModalRoutes.AddOrder)}
+        onPress={() => navigation.navigate(MainRoutes.AddOrder)}
       >
         <SVG
           xml={Plus as undefined as string}

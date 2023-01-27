@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native';
 
 export enum Metrics {
   none = 0,
@@ -8,8 +8,21 @@ export enum Metrics {
   md = 20,
   lg = 30,
   xl = 40,
-  xxl = 60
+  xxl = 60,
 }
+
+export type SpacingType = typeof Spacings;
+
+export const Spacings = {
+  none: Metrics.none,
+  xxs: Metrics.xxs,
+  xs: Metrics.xs,
+  sm: Metrics.sm,
+  md: Metrics.md,
+  lg: Metrics.lg,
+  xl: Metrics.xl,
+  xxl: Metrics.xxl,
+};
 
 export default {
   margins: {
@@ -21,7 +34,7 @@ export default {
       md: { margin: Metrics.md },
       lg: { margin: Metrics.lg },
       xl: { margin: Metrics.xl },
-      xxl: { margin: Metrics.xxl }
+      xxl: { margin: Metrics.xxl },
     }),
     vertical: StyleSheet.create({
       none: { marginVertical: Metrics.none },
@@ -31,7 +44,7 @@ export default {
       md: { marginVertical: Metrics.md },
       lg: { marginVertical: Metrics.lg },
       xl: { marginVertical: Metrics.xl },
-      xxl: { marginVertical: Metrics.xxl }
+      xxl: { marginVertical: Metrics.xxl },
     }),
     horizontal: StyleSheet.create({
       none: { marginHorizontal: Metrics.none },
@@ -41,7 +54,7 @@ export default {
       md: { marginHorizontal: Metrics.md },
       lg: { marginHorizontal: Metrics.lg },
       xl: { marginHorizontal: Metrics.xl },
-      xxl: { marginHorizontal: Metrics.xxl }
+      xxl: { marginHorizontal: Metrics.xxl },
     }),
     left: StyleSheet.create({
       none: { marginLeft: Metrics.none },
@@ -51,7 +64,7 @@ export default {
       md: { marginLeft: Metrics.md },
       lg: { marginLeft: Metrics.lg },
       xl: { marginLeft: Metrics.xl },
-      xxl: { marginLeft: Metrics.xxl }
+      xxl: { marginLeft: Metrics.xxl },
     }),
     right: StyleSheet.create({
       none: { marginRight: Metrics.none },
@@ -61,7 +74,7 @@ export default {
       md: { marginRight: Metrics.md },
       lg: { marginRight: Metrics.lg },
       xl: { marginRight: Metrics.xl },
-      xxl: { marginRight: Metrics.xxl }
+      xxl: { marginRight: Metrics.xxl },
     }),
     top: StyleSheet.create({
       none: { marginTop: Metrics.none },
@@ -71,7 +84,7 @@ export default {
       md: { marginTop: Metrics.md },
       lg: { marginTop: Metrics.lg },
       xl: { marginTop: Metrics.xl },
-      xxl: { marginTop: Metrics.xxl }
+      xxl: { marginTop: Metrics.xxl },
     }),
     bottom: StyleSheet.create({
       none: { marginBottom: Metrics.none },
@@ -81,8 +94,8 @@ export default {
       md: { marginBottom: Metrics.md },
       lg: { marginBottom: Metrics.lg },
       xl: { marginBottom: Metrics.xl },
-      xxl: { marginBottom: Metrics.xxl }
-    })
+      xxl: { marginBottom: Metrics.xxl },
+    }),
   },
   paddings: {
     all: StyleSheet.create({
@@ -93,7 +106,7 @@ export default {
       md: { padding: Metrics.md },
       lg: { padding: Metrics.lg },
       xl: { padding: Metrics.xl },
-      xxl: { padding: Metrics.xxl }
+      xxl: { padding: Metrics.xxl },
     }),
     vertical: StyleSheet.create({
       none: { paddingVertical: Metrics.none },
@@ -103,7 +116,7 @@ export default {
       md: { paddingVertical: Metrics.md },
       lg: { paddingVertical: Metrics.lg },
       xl: { paddingVertical: Metrics.xl },
-      xxl: { paddingVertical: Metrics.xxl }
+      xxl: { paddingVertical: Metrics.xxl },
     }),
     horizontal: StyleSheet.create({
       none: { paddingHorizontal: Metrics.none },
@@ -113,7 +126,7 @@ export default {
       md: { paddingHorizontal: Metrics.md },
       lg: { paddingHorizontal: Metrics.lg },
       xl: { paddingHorizontal: Metrics.xl },
-      xxl: { paddingHorizontal: Metrics.xxl }
+      xxl: { paddingHorizontal: Metrics.xxl },
     }),
 
     left: StyleSheet.create({
@@ -124,7 +137,7 @@ export default {
       md: { marginLeft: Metrics.md },
       lg: { marginLeft: Metrics.lg },
       xl: { marginLeft: Metrics.xl },
-      xxl: { marginLeft: Metrics.xxl }
+      xxl: { marginLeft: Metrics.xxl },
     }),
     right: StyleSheet.create({
       none: { marginRight: Metrics.none },
@@ -134,7 +147,7 @@ export default {
       md: { marginRight: Metrics.md },
       lg: { marginRight: Metrics.lg },
       xl: { marginRight: Metrics.xl },
-      xxl: { marginRight: Metrics.xxl }
+      xxl: { marginRight: Metrics.xxl },
     }),
     top: StyleSheet.create({
       none: { marginTop: Metrics.none },
@@ -144,7 +157,7 @@ export default {
       md: { marginTop: Metrics.md },
       lg: { marginTop: Metrics.lg },
       xl: { marginTop: Metrics.xl },
-      xxl: { marginTop: Metrics.xxl }
+      xxl: { marginTop: Metrics.xxl },
     }),
     bottom: StyleSheet.create({
       none: { marginBottom: Metrics.none },
@@ -154,8 +167,8 @@ export default {
       md: { marginBottom: Metrics.md },
       lg: { marginBottom: Metrics.lg },
       xl: { marginBottom: Metrics.xl },
-      xxl: { marginBottom: Metrics.xxl }
-    })
+      xxl: { marginBottom: Metrics.xxl },
+    }),
   },
   distance: {
     bottom: StyleSheet.create({
@@ -166,7 +179,7 @@ export default {
       md: { bottom: Metrics.md },
       lg: { bottom: Metrics.lg },
       xl: { bottom: Metrics.xl },
-      xxl: { bottom: Metrics.xxl }
+      xxl: { bottom: Metrics.xxl },
     }),
     left: StyleSheet.create({
       none: { left: Metrics.none },
@@ -176,12 +189,12 @@ export default {
       md: { left: Metrics.md },
       lg: { left: Metrics.lg },
       xl: { left: Metrics.xl },
-      xxl: { left: Metrics.xxl }
-    })
+      xxl: { left: Metrics.xxl },
+    }),
   },
   border: StyleSheet.create({
     sm: { borderRadius: Metrics.xxs },
     md: { borderRadius: Metrics.xs },
-    lg: { borderRadius: Metrics.md }
-  })
-}
+    lg: { borderRadius: Metrics.md },
+  }),
+};

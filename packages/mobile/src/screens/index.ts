@@ -5,3 +5,6 @@ export * from './MenuScreen';
 export * from './OrdersScreen';
 export * from './RegisterEmployeesScreen';
 export * from './RegisterMerchantScreen';
+export * from './LoginScreen';
+export * from './SettingsScreen';
+export * from './SplashScreen';

@@ -1,24 +1,24 @@
-import withObservables, { ObservableifyProps } from '@nozbe/with-observables'
-import { Client as ClientDB } from 'models'
-import React from 'react'
-import { Text, TouchableOpacity, View } from 'react-native'
-import { createClientService } from 'services/Client/api'
-import { styles } from './styles'
+import withObservables, { ObservableifyProps } from '@nozbe/with-observables';
+import { Client as ClientDB } from 'models';
+import React from 'react';
+import { Text, TouchableOpacity, View } from 'react-native';
+import { ClientService } from '@mobile/services';
+import { styles } from './styles';
 
 interface Props {
-  client: ClientDB[]
+  client: ClientDB[];
 }
 
-type InputProps = ObservableifyProps<Props, 'client'>
+type InputProps = ObservableifyProps<Props, 'client'>;
 
 export const ClientCardToObserve: React.FC<Props> = ({ client }) => {
   const onDelete = async (id: string) => {
     try {
-      await createClientService().delete(id)
+      await ClientService.delete(id);
     } catch (error) {
-      console.log('Error: ', JSON.stringify(error))
+      console.log('Error: ', JSON.stringify(error));
     }
-  }
+  };
 
   return (
     <>
@@ -35,17 +35,20 @@ export const ClientCardToObserve: React.FC<Props> = ({ client }) => {
             </Text>
           </View>
 
-          <TouchableOpacity onPress={() => onDelete(cli.id)} style={styles.delete}>
+          <TouchableOpacity
+            onPress={() => onDelete(cli.id)}
+            style={styles.delete}
+          >
             <Text style={styles.deleteText}>DELETE</Text>
           </TouchableOpacity>
         </View>
       ))}
     </>
-  )
-}
+  );
+};
 
 const enhance = withObservables(['client'], ({ client }: InputProps) => ({
-  client
-}))
+  client,
+}));
 
-export const ClientCard = enhance(ClientCardToObserve)
+export const ClientCard = enhance(ClientCardToObserve);

@@ -33,6 +33,7 @@
     "validator": "*",
     "react-native-keychain": "*",
     "axios-logger": "*",
-    "react-native-permissions": "*"
+    "react-native-permissions": "*",
+    "jwt-decode": "*"
   }
 }

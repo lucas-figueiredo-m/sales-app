@@ -1,5 +1,6 @@
 import withObservables, { ObservableifyProps } from '@nozbe/with-observables';
-import { Client as ClientDB } from '@mobile/models';
+import { Client } from '@mobile/types';
+
 import React from 'react';
 import {
   Dimensions,
@@ -8,11 +9,11 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { createClientService } from '@mobile/services';
+import { ClientService } from '@mobile/services';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 interface Props {
-  client: ClientDB[];
+  client: Client[];
 }
 
 type InputProps = ObservableifyProps<Props, 'client'>;
@@ -48,7 +49,7 @@ export const styles = StyleSheet.create({
 export const ClientCardToObserve: React.FC<Props> = ({ client }) => {
   const onDelete = async (id: string) => {
     try {
-      await createClientService().delete(id);
+      await ClientService.delete(id);
     } catch (error) {
       console.log('Error: ', JSON.stringify(error));
     }
@@ -61,11 +62,11 @@ export const ClientCardToObserve: React.FC<Props> = ({ client }) => {
           <View>
             <Text>
               <Text>Client name: </Text>
-              <Text>{cli.socialName}</Text>
+              <Text>{cli.companyName}</Text>
             </Text>
             <Text>
               <Text>Document: </Text>
-              <Text>{cli.document}</Text>
+              <Text>{cli.taxpayerId}</Text>
             </Text>
           </View>
 

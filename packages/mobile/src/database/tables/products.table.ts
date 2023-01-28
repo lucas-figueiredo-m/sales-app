@@ -11,8 +11,8 @@ const ProductTableColumns: ProductTableColumnsType[] = [
   { name: ProductColumns.price, type: 'number' },
   { name: ProductColumns.category, type: 'string' },
   { name: ProductColumns.type, type: 'string' },
-  { name: ProductColumns.createdAt, type: 'string' },
-  { name: ProductColumns.updatedAt, type: 'string' },
+  { name: ProductColumns.createdAt, type: 'number' },
+  { name: ProductColumns.updatedAt, type: 'number' },
 ];
 
 export const ProductTable = tableSchema({

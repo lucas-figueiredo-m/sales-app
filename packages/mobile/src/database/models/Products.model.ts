@@ -10,6 +10,6 @@ export class ProductModel extends Model {
   @text(ProductColumns.price) price!: number;
   @text(ProductColumns.category) category!: string;
   @text(ProductColumns.type) type!: string;
-  @readonly @date(ProductColumns.createdAt) createdAt!: Date; // TODO: Fix it
-  @date(ProductColumns.updatedAt) updatedAt!: Date; // TODO: Fix it
+  @readonly @date(ProductColumns.createdAt) createdAt: number;
+  @readonly @date(ProductColumns.updatedAt) updatedAt: number;
 }

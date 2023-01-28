@@ -19,9 +19,9 @@ const ClientTableColumns: ClientTableColumnsType[] = [
   { name: ClientColumns.number, type: 'string' },
   { name: ClientColumns.complement, type: 'string' },
   { name: ClientColumns.zipCode, type: 'string' },
-  { name: ClientColumns.createdAt, type: 'string' },
-  { name: ClientColumns.updatedAt, type: 'string' },
   { name: ClientColumns.active, type: 'boolean' },
+  { name: ClientColumns.createdAt, type: 'number' },
+  { name: ClientColumns.updatedAt, type: 'number' },
 ];
 
 export const ClientTable = tableSchema({

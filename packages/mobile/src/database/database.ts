@@ -1,7 +1,13 @@
 import { Database } from '@nozbe/watermelondb';
 import SQLiteAdapter from '@nozbe/watermelondb/adapters/sqlite';
 import { migrations } from './migrations';
-import { ClientModel, ProductModel } from './models';
+import {
+  ClientModel,
+  ProductModel,
+  OrderItems,
+  Orders,
+  HistoricalProductPrice,
+} from './models';
 import { schema } from './schemas';
 
 const adapter = new SQLiteAdapter({
@@ -15,7 +21,13 @@ const adapter = new SQLiteAdapter({
 
 export const database = new Database({
   adapter,
-  modelClasses: [ClientModel, ProductModel],
+  modelClasses: [
+    ClientModel,
+    ProductModel,
+    OrderItems,
+    Orders,
+    HistoricalProductPrice,
+  ],
   // actionsEnabled: true
 });
 

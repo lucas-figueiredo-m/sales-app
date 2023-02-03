@@ -6,10 +6,10 @@ export class EmployeeDto implements Employee {
   id: number;
 
   @Expose()
-  firstName: string;
+  first_name: string;
 
   @Expose()
-  lastName: string;
+  last_name: string;
 
   @Expose()
   email: string;

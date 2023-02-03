@@ -1,6 +1,7 @@
 import { useToastMessage } from '@mobile/hooks';
 import React from 'react';
 import { Text, TouchableOpacity, SafeAreaView } from 'react-native';
+import { DatabaseService } from '@mobile/services';
 
 export const HomeScreen: React.FC = () => {
   const { wifiDisconnected } = useToastMessage();
@@ -12,6 +13,17 @@ export const HomeScreen: React.FC = () => {
         style={{ width: 100, height: 40, backgroundColor: 'yellow' }}
       >
         <Text>Home</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => DatabaseService.sync()}
+        style={{
+          width: 100,
+          height: 40,
+          backgroundColor: 'yellow',
+          marginTop: 50,
+        }}
+      >
+        <Text>Sync</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );

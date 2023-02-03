@@ -10,7 +10,7 @@ export class ClientsController {
   @Get()
   async getAllClients(@CurrentEmployee() employee: DecodedJwt) {
     const client = await this.clientsRepository.getClientsByEmployeeId(
-      employee.employeeId
+      employee.employee_id
     );
     return client;
   }
@@ -21,20 +21,20 @@ export class ClientsController {
     @CurrentEmployee() employee: DecodedJwt
   ) {
     const client = await this.clientsRepository.create(
-      employee.employeeId,
+      employee.employee_id,
       body
     );
     return client;
   }
 
   @Patch('/deactivate')
-  // TODO: validate if employeeId matches employeeId from request
+  // TODO: validate if employee_id matches employee_id from request
   async deactivateClient(@Query('id') id: string) {
     return this.clientsRepository.deactivateClient(parseInt(id));
   }
 
   @Patch('/activate')
-  // TODO: validate if employeeId matches employeeId from request
+  // TODO: validate if employee_id matches employee_id from request
   async activateClient(@Query('id') id: string) {
     return this.clientsRepository.activateClient(parseInt(id));
   }

@@ -20,7 +20,7 @@ class KeychainService {
 
     const decodedToken = jwt_decode<DecodedJwt>(content.username);
 
-    this.http.setUserData(content.username, decodedToken.employeeId);
+    this.http.setUserData(content.username, decodedToken.employee_id);
 
     return true;
   }

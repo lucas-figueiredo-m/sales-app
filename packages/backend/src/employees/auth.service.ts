@@ -52,9 +52,9 @@ export class AuthService {
       throw new UnauthorizedException('Bad password');
 
     const access_token = this.jwtService.sign({
-      employeeId: employee.id,
-      firstName: employee.firstName,
-      lastName: employee.lastName,
+      employee_id: employee.id,
+      first_name: employee.first_name,
+      last_name: employee.last_name,
     });
 
     return { ...employee, access_token };

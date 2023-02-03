@@ -5,8 +5,8 @@ export abstract class ProductsInterface {
   abstract create(productData): Promise<Products>;
   abstract get(category: string): Promise<Products[]>;
   abstract update(
-    productId: number,
+    product_id: number,
     attr: Partial<CreateProductType>
   ): Promise<Products>;
-  abstract delete(productId: number): Promise<void>;
+  abstract delete(product_id: number): Promise<void>;
 }

@@ -30,21 +30,21 @@ export class OrdersService extends OrdersInterface {
   protected async processOrderData(orderData: UpdateOrderProductType[]) {
     const productPriceList = await this.getProductsPriceListById(
       orderData.map((product) => ({
-        id: product.productId,
+        id: product.product_id,
       }))
     );
 
     return orderData.map((product) => ({
       ...(product.id && { id: product.id }),
       ...(product.notes && { notes: product.notes }),
-      productId: product.productId,
-      negotiatedPrice: product.negotiatedPrice,
-      orderedWeightInGrams: product.orderedWeightInGrams,
-      tablePrice: productPriceList.find(
-        (productPrice) => productPrice.id === product.productId
+      product_id: product.product_id,
+      negotiated_price: product.negotiated_price,
+      ordered_weight_in_grams: product.ordered_weight_in_grams,
+      table_price: productPriceList.find(
+        (productPrice) => productPrice.id === product.product_id
       ).price,
-      estimatedProductTotalPrice:
-        (product.negotiatedPrice * product.orderedWeightInGrams) / 1000,
+      estimated_product_total_price:
+        (product.negotiated_price * product.ordered_weight_in_grams) / 1000,
     }));
   }
 
@@ -53,10 +53,10 @@ export class OrdersService extends OrdersInterface {
 
     const order = await this.prisma.orders.create({
       data: {
-        clientId: orderData.clientId,
+        client_id: orderData.client_id,
         status: OrderStatus.created,
-        estimatedOrderPrice: processedOrderData.reduce(
-          (prev, curr) => prev + curr.estimatedProductTotalPrice,
+        estimated_order_price: processedOrderData.reduce(
+          (prev, curr) => prev + curr.estimated_product_total_price,
           0
         ),
       },
@@ -65,7 +65,7 @@ export class OrdersService extends OrdersInterface {
     await this.prisma.orderItems.createMany({
       data: processedOrderData.map((processedProduct) => ({
         ...processedProduct,
-        orderId: order.id,
+        order_id: order.id,
       })),
     });
   }
@@ -75,45 +75,45 @@ export class OrdersService extends OrdersInterface {
         id: orderId,
       },
       include: {
-        OrderItems: true,
+        order_items: true,
         client: true,
       },
     });
   }
 
-  async getClientOrders(clientId: number): Promise<OrderData[]> {
+  async getClientOrders(client_id: number): Promise<OrderData[]> {
     return await this.prisma.orders.findMany({
       where: {
-        clientId,
+        client_id,
       },
       include: {
-        OrderItems: true,
+        order_items: true,
         client: true,
       },
       orderBy: {
-        createdAt: 'desc',
+        created_at: 'desc',
       },
     });
   }
 
-  async getEmployeeOrders(employeeId: number): Promise<OrderData[]> {
+  async getEmployeeOrders(employee_id: number): Promise<OrderData[]> {
     return await this.prisma.orders.findMany({
       where: {
         client: {
-          employeeId,
+          employee_id,
         },
       },
       include: {
-        OrderItems: true,
+        order_items: true,
         client: true,
       },
       orderBy: {
-        createdAt: 'desc',
+        created_at: 'desc',
       },
     });
   }
 
-  async update(orderId: number, orderData: UpdateOrderType): Promise<void> {
+  async update(order_id: number, orderData: UpdateOrderType): Promise<void> {
     const processedOrderData = await this.processOrderData(orderData.products);
 
     const orderItemsToUpdate = processedOrderData.filter((order) => !!order.id);
@@ -126,31 +126,32 @@ export class OrdersService extends OrdersInterface {
             id: product.id,
           },
           data: {
-            negotiatedPrice: product.negotiatedPrice,
-            orderedWeightInGrams: product.orderedWeightInGrams,
-            estimatedProductTotalPrice:
-              (product.negotiatedPrice * product.orderedWeightInGrams) / 1000,
+            negotiated_price: product.negotiated_price,
+            ordered_weight_in_grams: product.ordered_weight_in_grams,
+            estimated_product_total_price:
+              (product.negotiated_price * product.ordered_weight_in_grams) /
+              1000,
             notes: product.notes,
           },
         })
       ),
       this.prisma.orderItems.createMany({
-        data: orderItemsToCreate.map((newOrder) => ({ ...newOrder, orderId })),
+        data: orderItemsToCreate.map((newOrder) => ({ ...newOrder, order_id })),
       }),
     ]);
 
     const sum = await this.prisma.orderItems.aggregate({
       _sum: {
-        estimatedProductTotalPrice: true,
+        estimated_product_total_price: true,
       },
       where: {
-        orderId,
+        order_id,
       },
     });
 
     await this.prisma.orders.update({
-      where: { id: orderId },
-      data: { estimatedOrderPrice: sum._sum.estimatedProductTotalPrice },
+      where: { id: order_id },
+      data: { estimated_order_price: sum._sum.estimated_product_total_price },
     });
   }
   async delete(orderId: number): Promise<void> {

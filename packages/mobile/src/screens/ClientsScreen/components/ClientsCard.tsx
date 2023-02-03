@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import { ClientService } from '@mobile/services';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
+import { formatTaxpayerId } from '@mobile/utils';
 
 interface Props {
   client: Client[];
@@ -66,7 +67,7 @@ export const ClientCardToObserve: React.FC<Props> = ({ client }) => {
             </Text>
             <Text>
               <Text>Document: </Text>
-              <Text>{cli.taxpayerId}</Text>
+              <Text>{formatTaxpayerId(cli.taxpayerId)}</Text>
             </Text>
           </View>
 

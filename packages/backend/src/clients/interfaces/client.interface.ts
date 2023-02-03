@@ -3,13 +3,13 @@ import { CreateClientDto } from '../dto';
 
 export abstract class ClientInterface {
   abstract create(
-    employeeId: number,
+    employee_id: number,
     clientData: CreateClientDto
   ): Promise<{ dto: Client }>;
   abstract getAll(): Promise<{ dto: Client[] }>;
   abstract getClientsByEmployeeId(
-    employeeId: number
+    employee_id: number
   ): Promise<{ dto: Client[] }>;
-  abstract deactivateClient(clientId: number): Promise<Client>;
-  abstract activateClient(clientId: number): Promise<Client>;
+  abstract deactivateClient(client_id: number): Promise<Client>;
+  abstract activateClient(client_id: number): Promise<Client>;
 }

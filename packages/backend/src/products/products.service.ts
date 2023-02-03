@@ -19,18 +19,18 @@ export class ProductsService implements ProductsInterface {
   }
 
   async update(
-    productId: number,
+    product_id: number,
     attr: Partial<CreateProductType>
   ): Promise<Products> {
     return await this.prisma.products.update({
       where: {
-        id: productId,
+        id: product_id,
       },
       data: attr,
     });
   }
 
-  async delete(productId: number): Promise<void> {
-    await this.prisma.products.delete({ where: { id: productId } });
+  async delete(product_id: number): Promise<void> {
+    await this.prisma.products.delete({ where: { id: product_id } });
   }
 }

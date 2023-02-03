@@ -1,22 +1,22 @@
 import { Client, OrderItems, Orders } from '@prisma/client';
 
 export type CreateOrderProductType = {
-  productId: number;
-  negotiatedPrice: number;
-  orderedWeightInGrams: number;
+  product_id: number;
+  negotiated_price: number;
+  ordered_weight_in_grams: number;
   notes?: string;
 };
 
 export type UpdateOrderProductType = {
   id?: number;
   notes?: string;
-  productId: number;
-  negotiatedPrice: number;
-  orderedWeightInGrams: number;
+  product_id: number;
+  negotiated_price: number;
+  ordered_weight_in_grams: number;
 };
 
 export type CreateOrderType = {
-  clientId: number;
+  client_id: number;
   products: CreateOrderProductType[];
 };
 
@@ -24,9 +24,9 @@ export type UpdateOrderType = {
   products: UpdateOrderProductType[];
 };
 
-export type OrderData = Orders & { OrderItems: OrderItems[]; client: Client };
+export type OrderData = Orders & { order_items: OrderItems[]; client: Client };
 
 export type ProcessedOrderDataType = UpdateOrderProductType & {
-  tablePrice: number;
-  estimatedProductTotalPrice: number;
+  table_price: number;
+  estimated_product_total_price: number;
 };

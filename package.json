@@ -5,7 +5,8 @@
   "scripts": {
     "backend": "nx serve backend",
     "ios": "nx run mobile:run-ios --scheme \"Mobile Development\"",
-    "android": "nx run mobile:run-amdroid"
+    "android": "nx run mobile:run-amdroid",
+    "backend:migrate": "nx run backend:migrate && nx run backend:gen-client"
   },
   "private": true,
   "dependencies": {

@@ -10,7 +10,7 @@ import {
 export class CreateOrderDto implements CreateOrderType {
   @IsNotEmpty()
   @IsNumber()
-  clientId: number;
+  client_id: number;
 
   @IsNotEmpty()
   @IsArray()
@@ -21,15 +21,15 @@ export class CreateOrderDto implements CreateOrderType {
 export class CreateOrderProductDto implements CreateOrderProductType {
   @IsNotEmpty()
   @IsNumber()
-  productId: number;
+  product_id: number;
 
   @IsNotEmpty()
   @IsNumber()
-  negotiatedPrice: number;
+  negotiated_price: number;
 
   @IsNotEmpty()
   @IsNumber()
-  orderedWeightInGrams: number;
+  ordered_weight_in_grams: number;
 
   @IsOptional()
   notes?: string;

@@ -9,21 +9,21 @@ import { IsValidTaxpayerId, IsValidClientType } from '../../validators';
 
 export class CreateClientDto implements CreateClient {
   @IsNotEmpty()
-  companyName: string;
+  company_name: string;
 
   @IsNotEmpty()
-  tradeName: string;
+  trade_name: string;
 
   @IsNotEmpty()
   @Length(14, 14)
   @IsValidTaxpayerId()
-  taxpayerId: string;
+  taxpayer_id: string;
 
   @IsNotEmpty()
-  buyerFirstName: string;
+  buyer_first_name: string;
 
   @IsNotEmpty()
-  buyerLastName: string;
+  buyer_last_name: string;
 
   @IsNotEmpty()
   @IsMobilePhone('pt-BR')
@@ -43,5 +43,5 @@ export class CreateClientDto implements CreateClient {
   @IsNotEmpty()
   @IsNumberString()
   @Length(8, 8)
-  zipCode: string;
+  zip_code: string;
 }

@@ -8,13 +8,13 @@ import { CreateClientDto } from './dto';
 export class ClientsService implements ClientInterface {
   constructor(private prisma: PrismaService) {}
   async create(
-    employeeId: number,
+    employee_id: number,
     clientData: CreateClientDto
   ): Promise<{ dto: Client }> {
     try {
       const client = await this.prisma.client.create({
         data: {
-          employeeId,
+          employee_id,
           ...clientData,
         },
       });
@@ -39,10 +39,12 @@ export class ClientsService implements ClientInterface {
     };
   }
 
-  async getClientsByEmployeeId(employeeId: number): Promise<{ dto: Client[] }> {
+  async getClientsByEmployeeId(
+    employee_id: number
+  ): Promise<{ dto: Client[] }> {
     const clients = await this.prisma.client.findMany({
-      where: { employeeId },
-      orderBy: { tradeName: 'asc' },
+      where: { employee_id },
+      orderBy: { trade_name: 'asc' },
     });
 
     return {
@@ -50,16 +52,16 @@ export class ClientsService implements ClientInterface {
     };
   }
 
-  async deactivateClient(clientId: number) {
+  async deactivateClient(client_id: number) {
     return await this.prisma.client.update({
-      where: { id: clientId },
+      where: { id: client_id },
       data: { active: false },
     });
   }
 
-  async activateClient(clientId: number) {
+  async activateClient(client_id: number) {
     return await this.prisma.client.update({
-      where: { id: clientId },
+      where: { id: client_id },
       data: { active: true },
     });
   }

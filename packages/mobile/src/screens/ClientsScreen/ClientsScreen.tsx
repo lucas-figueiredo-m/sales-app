@@ -31,7 +31,7 @@ export const ClientsScreen: React.FC = () => {
       await ClientService.create({
         companyName: `Arthur ${count}`,
         taxpayerId: '104.979.466-45',
-        employeeId: 1,
+        employee_id: 1,
         tradeName: `Lucas ${count}`,
         type: 'Test',
         buyerFirstName: 'Lucas',

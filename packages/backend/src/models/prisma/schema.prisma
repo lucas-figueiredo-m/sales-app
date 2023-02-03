@@ -10,86 +10,86 @@ generator client {
 }
 
 model Employee {
-  id        Int      @id @default(autoincrement())
-  firstName String
-  lastName  String
-  email     String   @unique
-  phone     String   @unique
-  password  String
-  clients   Client[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
+  id         Int      @id @default(autoincrement())
+  first_name String
+  last_name  String
+  email      String   @unique
+  phone      String   @unique
+  password   String
+  clients    Client[]
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
 }
 
 model Client {
-  id             Int      @id @default(autoincrement())
-  employeeId     Int
-  employee       Employee @relation(fields: [employeeId], references: [id])
-  companyName    String
-  tradeName      String
-  taxpayerId     String   @unique
-  type           String
-  buyerFirstName String
-  buyerLastName  String
-  phone          String
-  address        String
-  number         String
-  complement     String
-  zipCode        String
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @default(now()) @updatedAt
-  Orders         Orders[]
-  active         Boolean  @default(true)
+  id               Int      @id @default(autoincrement())
+  employee_id      Int
+  employee         Employee @relation(fields: [employee_id], references: [id])
+  company_name     String
+  trade_name       String
+  taxpayer_id      String   @unique
+  type             String
+  buyer_first_name String
+  buyer_last_name  String
+  phone            String
+  address          String
+  number           String
+  complement       String
+  zip_code         String
+  created_at       DateTime @default(now())
+  updated_at       DateTime @default(now()) @updatedAt
+  Orders           Orders[]
+  active           Boolean  @default(true)
 }
 
 model Products {
-  id                     Int                      @id @default(autoincrement())
-  name                   String
-  price                  Int
-  category               String
-  type                   String
-  HistoricalProductPrice HistoricalProductPrice[]
-  createdAt              DateTime                 @default(now())
-  updatedAt              DateTime                 @default(now()) @updatedAt
-  OrderItems             OrderItems[]
+  id                       Int                      @id @default(autoincrement())
+  name                     String
+  price                    Int
+  category                 String
+  type                     String
+  historical_product_price HistoricalProductPrice[]
+  created_at               DateTime                 @default(now())
+  updated_at               DateTime                 @default(now()) @updatedAt
+  order_items              OrderItems[]
 
   @@index([category], type: BTree)
 }
 
 model HistoricalProductPrice {
-  id        Int      @id @default(autoincrement())
-  productId Int
-  product   Products @relation(fields: [productId], references: [id])
-  price     Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
+  id         Int      @id @default(autoincrement())
+  product_id Int
+  product    Products @relation(fields: [product_id], references: [id])
+  price      Int
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
 }
 
 model Orders {
-  id                  Int          @id @default(autoincrement())
-  clientId            Int
-  client              Client       @relation(fields: [clientId], references: [id])
-  status              String // CREATED - SENT - IN-PREPARATION - IN-TRANSIT - DELIVERED
-  estimatedOrderPrice Float
-  orderTotalPrice     Int?
-  createdAt           DateTime     @default(now())
-  updatedAt           DateTime     @default(now()) @updatedAt
-  OrderItems          OrderItems[]
+  id                    Int          @id @default(autoincrement())
+  client_id             Int
+  client                Client       @relation(fields: [client_id], references: [id])
+  status                String // CREATED - SENT - IN-PREPARATION - IN-TRANSIT - DELIVERED
+  estimated_order_price Float
+  order_total_price     Int?
+  created_at            DateTime     @default(now())
+  updated_at            DateTime     @default(now()) @updatedAt
+  order_items           OrderItems[]
 }
 
 model OrderItems {
-  id                         Int      @id @default(autoincrement())
-  orderId                    Int
-  order                      Orders   @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  productId                  Int
-  products                   Products @relation(fields: [productId], references: [id], onDelete: Cascade)
-  tablePrice                 Int
-  negotiatedPrice            Int
-  orderedWeightInGrams       Int
-  deliveredWeightInGrams     Int?
-  estimatedProductTotalPrice Float
-  productTotalPrice          Int?
-  notes                      String   @default("")
-  createdAt                  DateTime @default(now())
-  updatedAt                  DateTime @default(now()) @updatedAt
+  id                            Int      @id @default(autoincrement())
+  order_id                      Int
+  order                         Orders   @relation(fields: [order_id], references: [id], onDelete: Cascade)
+  product_id                    Int
+  products                      Products @relation(fields: [product_id], references: [id], onDelete: Cascade)
+  table_price                   Int
+  negotiated_price              Int
+  ordered_weight_in_grams       Int
+  delivered_weight_in_grams     Int?
+  estimated_product_total_price Float
+  product_total_price           Int?
+  notes                         String   @default("")
+  created_at                    DateTime @default(now())
+  updated_at                    DateTime @default(now()) @updatedAt
 }

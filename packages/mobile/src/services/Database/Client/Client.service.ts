@@ -12,7 +12,7 @@ class ClientClass implements ClientAbstract {
     if (entries.length) {
       return entries.map<Client>((entry) => ({
         id: entry.id,
-        employeeId: entry.employeeId,
+        employee_id: entry.employee_id,
         companyName: entry.companyName,
         tradeName: entry.tradeName,
         taxpayerId: entry.taxpayerId,
@@ -35,7 +35,7 @@ class ClientClass implements ClientAbstract {
       .find(String(id));
     const formattedEntry: Client = {
       id: entry.id,
-      employeeId: entry.employeeId,
+      employee_id: entry.employee_id,
       companyName: entry.companyName,
       tradeName: entry.tradeName,
       taxpayerId: entry.taxpayerId,
@@ -56,7 +56,7 @@ class ClientClass implements ClientAbstract {
       const newUser: ClientModel = await database
         .get<ClientModel>(Tables.Client)
         .create((newEntry) => {
-          newEntry.employeeId = client.employeeId;
+          newEntry.employee_id = client.employee_id;
           newEntry.companyName = client.companyName;
           newEntry.tradeName = client.tradeName;
           newEntry.taxpayerId = client.taxpayerId;
@@ -73,7 +73,7 @@ class ClientClass implements ClientAbstract {
 
       const formattedEntry: Client = {
         id: newUser.id,
-        employeeId: newUser.employeeId,
+        employee_id: newUser.employee_id,
         companyName: newUser.companyName,
         tradeName: newUser.tradeName,
         taxpayerId: newUser.taxpayerId,
@@ -97,7 +97,7 @@ class ClientClass implements ClientAbstract {
       .get<ClientModel>(Tables.Client)
       .find(String(client.id));
     await entry.update((updatedEntry) => {
-      updatedEntry.employeeId = client.employeeId;
+      updatedEntry.employee_id = client.employee_id;
       updatedEntry.companyName = client.companyName;
       updatedEntry.tradeName = client.tradeName;
       updatedEntry.taxpayerId = client.taxpayerId;
@@ -116,7 +116,7 @@ class ClientClass implements ClientAbstract {
     // });
     const formattedEntry: Client = {
       id: entry.id,
-      employeeId: entry.employeeId,
+      employee_id: entry.employee_id,
       companyName: entry.companyName,
       tradeName: entry.tradeName,
       taxpayerId: entry.taxpayerId,

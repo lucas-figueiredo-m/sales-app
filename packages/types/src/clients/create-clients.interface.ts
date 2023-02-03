@@ -1,12 +1,12 @@
 export interface CreateClient {
-  companyName: string;
-  tradeName: string;
-  taxpayerId: string;
-  buyerFirstName: string;
-  buyerLastName: string;
+  company_name: string;
+  trade_name: string;
+  taxpayer_id: string;
+  buyer_first_name: string;
+  buyer_last_name: string;
   phone: string;
   address: string;
   number: string;
   complement: string;
-  zipCode: string;
+  zip_code: string;
 }

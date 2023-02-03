@@ -1,5 +1,5 @@
 import { CreateProductType, ProductCategories } from '@sales-app/types';
-import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsNumber, IsOptional, IsString } from 'class-validator';
 import { IsValidClientType } from '../../validators';
 import { IsValidProductCategory } from '../../validators/product-category.validator';
 
@@ -12,7 +12,7 @@ export class UpdateProductDto implements CreateProductType {
   @IsOptional()
   price: number;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsValidClientType()
   type: string;
 

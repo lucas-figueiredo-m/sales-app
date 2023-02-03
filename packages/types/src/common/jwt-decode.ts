@@ -1,6 +1,6 @@
 export type DecodedJwt = {
-  employeeId: number;
-  firstName: string;
-  lastName: string;
+  employee_id: number;
+  first_name: string;
+  last_name: string;
   iat: number;
 };

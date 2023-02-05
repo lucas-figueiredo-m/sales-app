@@ -9,8 +9,21 @@ generator client {
   output   = "../../../../../node_modules/.prisma/client"
 }
 
+enum ProductCategory {
+  BOVINE
+  SWINE
+  CHICKEN
+  GIBLETS
+}
+
+enum ClientType {
+  SMALL_BUSINESS
+  LARGE_BUSINESS
+}
+
 model Employee {
-  id         Int      @id @default(autoincrement())
+  server_id  Int      @id @default(autoincrement())
+  id         String?
   first_name String
   last_name  String
   email      String   @unique
@@ -22,13 +35,14 @@ model Employee {
 }
 
 model Client {
-  id               Int      @id @default(autoincrement())
+  server_id        Int        @id @default(autoincrement())
+  id               String?
   employee_id      Int
-  employee         Employee @relation(fields: [employee_id], references: [id])
+  employee         Employee   @relation(fields: [employee_id], references: [server_id])
   company_name     String
   trade_name       String
-  taxpayer_id      String   @unique
-  type             String
+  taxpayer_id      String     @unique
+  type             ClientType
   buyer_first_name String
   buyer_last_name  String
   phone            String
@@ -36,18 +50,19 @@ model Client {
   number           String
   complement       String
   zip_code         String
-  created_at       DateTime @default(now())
-  updated_at       DateTime @default(now()) @updatedAt
+  created_at       DateTime   @default(now())
+  updated_at       DateTime   @default(now()) @updatedAt
   Orders           Orders[]
-  active           Boolean  @default(true)
+  active           Boolean    @default(true)
 }
 
 model Products {
-  id                       Int                      @id @default(autoincrement())
+  server_id                Int                      @id @default(autoincrement())
+  id                       String?
   name                     String
   price                    Int
-  category                 String
-  type                     String
+  category                 ProductCategory
+  type                     ClientType
   historical_product_price HistoricalProductPrice[]
   created_at               DateTime                 @default(now())
   updated_at               DateTime                 @default(now()) @updatedAt
@@ -57,18 +72,20 @@ model Products {
 }
 
 model HistoricalProductPrice {
-  id         Int      @id @default(autoincrement())
+  server_id  Int      @id @default(autoincrement())
+  id         String
   product_id Int
-  product    Products @relation(fields: [product_id], references: [id])
+  product    Products @relation(fields: [product_id], references: [server_id])
   price      Int
   created_at DateTime @default(now())
   updated_at DateTime @default(now()) @updatedAt
 }
 
 model Orders {
-  id                    Int          @id @default(autoincrement())
+  server_id             Int          @id @default(autoincrement())
+  id                    String?
   client_id             Int
-  client                Client       @relation(fields: [client_id], references: [id])
+  client                Client       @relation(fields: [client_id], references: [server_id])
   status                String // CREATED - SENT - IN-PREPARATION - IN-TRANSIT - DELIVERED
   estimated_order_price Float
   order_total_price     Int?
@@ -78,11 +95,12 @@ model Orders {
 }
 
 model OrderItems {
-  id                            Int      @id @default(autoincrement())
+  server_id                     Int      @id @default(autoincrement())
+  id                            String?
   order_id                      Int
-  order                         Orders   @relation(fields: [order_id], references: [id], onDelete: Cascade)
+  order                         Orders   @relation(fields: [order_id], references: [server_id], onDelete: Cascade)
   product_id                    Int
-  products                      Products @relation(fields: [product_id], references: [id], onDelete: Cascade)
+  products                      Products @relation(fields: [product_id], references: [server_id], onDelete: Cascade)
   table_price                   Int
   negotiated_price              Int
   ordered_weight_in_grams       Int

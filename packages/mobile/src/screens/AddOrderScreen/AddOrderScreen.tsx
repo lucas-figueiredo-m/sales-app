@@ -4,6 +4,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Colors } from '@mobile/theme';
 import { Container, Header } from '@sales-app/ui-mobile';
+import { X } from '@sales-app/icons/index';
 
 const styles = StyleSheet.create({
   root: {
@@ -21,7 +22,11 @@ export const AddOrderScreen: React.FC = () => {
   return (
     <Container>
       <View style={styles.root}>
-        <Header onLeftPress={goBack} label="modal.newOrder.title" />
+        <Header
+          icon={X as unknown as string}
+          onLeftPress={goBack}
+          label="modal.newOrder.title"
+        />
         <View style={{ height: 100 }} />
       </View>
     </Container>

@@ -52,7 +52,7 @@ export class AuthService {
       throw new UnauthorizedException('Bad password');
 
     const access_token = this.jwtService.sign({
-      employee_id: employee.id,
+      employee_id: employee.server_id,
       first_name: employee.first_name,
       last_name: employee.last_name,
     });

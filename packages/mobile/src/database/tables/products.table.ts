@@ -7,6 +7,7 @@ type ProductTableColumnsType = {
 };
 
 const ProductTableColumns: ProductTableColumnsType[] = [
+  { name: ProductColumns.serverId, type: 'number' },
   { name: ProductColumns.name, type: 'string' },
   { name: ProductColumns.price, type: 'number' },
   { name: ProductColumns.category, type: 'string' },

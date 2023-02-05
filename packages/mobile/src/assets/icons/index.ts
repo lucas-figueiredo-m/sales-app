@@ -9,6 +9,11 @@ import UserAdd from './user-add.svg';
 import WiFiOff from './wifi-off.svg';
 import Settings from './settings.svg';
 import X from './x.svg';
+import Phone from './phone.svg';
+import ChevronLeft from './chevron-left.svg';
+import ChevronRight from './chevron-right.svg';
+import ChebronUp from './chevron-up.svg';
+import ChevronDown from './chevron-down.svg';
 
 export {
   Document,
@@ -22,4 +27,9 @@ export {
   WiFiOff,
   X,
   Settings,
+  Phone,
+  ChevronLeft,
+  ChevronRight,
+  ChebronUp,
+  ChevronDown,
 };

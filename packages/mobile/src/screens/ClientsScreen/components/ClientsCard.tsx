@@ -2,89 +2,101 @@ import withObservables, { ObservableifyProps } from '@nozbe/with-observables';
 import { Client } from '@mobile/types';
 
 import React from 'react';
-import {
-  Dimensions,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { Insets, Linking, TouchableOpacity, View } from 'react-native';
 import { ClientService } from '@mobile/services';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
-import { formatTaxpayerId } from '@mobile/utils';
+import { FlashList } from '@shopify/flash-list';
+import { createThemedStyles, useThemedStyles } from '@mobile/hooks';
+import { Phone } from '@sales-app/icons/index';
+import { Label, SVG } from '@sales-app/ui-mobile';
 
 interface Props {
-  client: Client[];
+  clients: Client[];
 }
 
-type InputProps = ObservableifyProps<Props, 'client'>;
+type InputProps = ObservableifyProps<Props, 'clients'>;
 
-const { width } = Dimensions.get('window');
+type ClientCardProps = {
+  client: Client;
+};
 
-export const styles = StyleSheet.create({
+const CLIENT_CARD_HEIGHT = 80;
+
+const hitSlop: Insets = {
+  top: 10,
+  bottom: 10,
+  left: 10,
+  right: 10,
+};
+
+const ClientCard: React.FC<ClientCardProps> = ({ client }) => {
+  const styles = useThemedStyles(themedClientCard);
+  return (
+    <TouchableOpacity style={styles.root}>
+      <View>
+        <Label.H3 t={client.company_name} />
+        <Label.H4>
+          <Label.H4 t={client.buyer_first_name} />
+          <Label.H4 t=" " />
+          <Label.H4 t={client.buyer_last_name} />
+        </Label.H4>
+      </View>
+      <TouchableOpacity
+        hitSlop={hitSlop}
+        onPress={() => Linking.openURL(`tel:${client.phone}`)}
+      >
+        <SVG
+          width={24}
+          height={24}
+          color={'black'}
+          xml={Phone as unknown as string}
+        />
+      </TouchableOpacity>
+    </TouchableOpacity>
+  );
+};
+
+export const ClientCardToObserve: React.FC<Props> = ({ clients }) => {
+  const styles = useThemedStyles(themedClientList);
+  const ClientListSeparator: React.FC = () => <View style={styles.separator} />;
+  return (
+    <View style={styles.root}>
+      <FlashList
+        data={clients}
+        ItemSeparatorComponent={() => <ClientListSeparator />}
+        renderItem={({ item }) => <ClientCard client={item} />}
+        keyExtractor={(item) => item.id}
+        estimatedItemSize={CLIENT_CARD_HEIGHT}
+      />
+    </View>
+  );
+};
+
+const themedClientCard = createThemedStyles(({ width, colors }) => ({
   root: {
-    width: width * 0.9,
-    height: 60,
+    width: '100%',
+    backgroundColor: colors.Cards.Background,
+    height: CLIENT_CARD_HEIGHT,
     alignSelf: 'center',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     marginBottom: 10,
-    borderRadius: 10,
-    borderWidth: 1,
     padding: 10,
   },
-
-  delete: {
-    backgroundColor: Colors.DarkRed,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-  },
-
-  deleteText: {
-    fontWeight: '600',
-    color: Colors.White,
-  },
-});
-
-export const ClientCardToObserve: React.FC<Props> = ({ client }) => {
-  const onDelete = async (id: string) => {
-    try {
-      await ClientService.delete(id);
-    } catch (error) {
-      console.log('Error: ', JSON.stringify(error));
-    }
-  };
-
-  return (
-    <>
-      {client.map((cli, index) => (
-        <View key={index} style={styles.root}>
-          <View>
-            <Text>
-              <Text>Client name: </Text>
-              <Text>{cli.companyName}</Text>
-            </Text>
-            <Text>
-              <Text>Document: </Text>
-              <Text>{formatTaxpayerId(cli.taxpayerId)}</Text>
-            </Text>
-          </View>
-
-          <TouchableOpacity
-            onPress={() => onDelete(cli.id)}
-            style={styles.delete}
-          >
-            <Text style={styles.deleteText}>DELETE</Text>
-          </TouchableOpacity>
-        </View>
-      ))}
-    </>
-  );
-};
-
-const enhance = withObservables(['client'], ({ client }: InputProps) => ({
-  client,
 }));
 
-export const ClientCard = enhance(ClientCardToObserve);
+const themedClientList = createThemedStyles(() => ({
+  root: {
+    width: '100%',
+    height: '100%',
+  },
+  separator: {
+    height: 5,
+  },
+}));
+
+const enhance = withObservables(['clients'], ({ clients }: InputProps) => ({
+  clients,
+}));
+
+export const ClientCardList = enhance(ClientCardToObserve);

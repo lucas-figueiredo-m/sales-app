@@ -29,13 +29,13 @@ export class ClientsController {
 
   @Patch('/deactivate')
   // TODO: validate if employee_id matches employee_id from request
-  async deactivateClient(@Query('id') id: string) {
-    return this.clientsRepository.deactivateClient(parseInt(id));
+  async deactivateClient(@Query('server_id') server_id: string) {
+    return this.clientsRepository.deactivateClient(parseInt(server_id));
   }
 
   @Patch('/activate')
   // TODO: validate if employee_id matches employee_id from request
-  async activateClient(@Query('id') id: string) {
-    return this.clientsRepository.activateClient(parseInt(id));
+  async activateClient(@Query('server_id') server_id: string) {
+    return this.clientsRepository.activateClient(parseInt(server_id));
   }
 }

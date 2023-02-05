@@ -1,5 +1,6 @@
 export enum ClientColumns {
   id = 'id',
+  serverId = 'server_id',
   employeeId = 'employee_id',
   companyName = 'company_name',
   tradeName = 'trade_name',
@@ -18,6 +19,7 @@ export enum ClientColumns {
 }
 
 export enum ProductColumns {
+  serverId = 'server_id',
   name = 'name',
   price = 'price',
   category = 'category',
@@ -27,6 +29,7 @@ export enum ProductColumns {
 }
 
 export enum HistoricalProductPriceColumns {
+  serverId = 'server_id',
   productId = 'product_id',
   price = 'price',
   createdAt = 'created_at',
@@ -34,6 +37,7 @@ export enum HistoricalProductPriceColumns {
 }
 
 export enum OrderColumns {
+  serverId = 'server_id',
   clientId = 'client_id',
   status = 'status',
   estimatedOrderPrice = 'estimated_order_price',
@@ -43,6 +47,7 @@ export enum OrderColumns {
 }
 
 export enum OrderItemColumns {
+  serverId = 'server_id',
   orderId = 'order_id',
   productId = 'product_id',
   tablePrice = 'table_price',

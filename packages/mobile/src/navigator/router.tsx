@@ -4,9 +4,12 @@ import { rootNavigationRef } from '@mobile/hooks';
 import React from 'react';
 import {
   AddOrderScreen,
+  BovineTableScreen,
+  GibletsTableScreen,
   LoginScreen,
   SettingsScreen,
   SplashScreen,
+  SwineTableScreen,
 } from 'packages/mobile/src/screens';
 import { modalOptions } from './config';
 import NewClientStack from './NewClientStack/NewClientStack';
@@ -37,6 +40,21 @@ export const Router: React.FC = () => {
           options={{ headerShown: true }}
           name={MainRoutes.Settings}
           component={SettingsScreen}
+        />
+        <Stack.Screen
+          options={{ headerShown: true }}
+          name={MainRoutes.BovineTable}
+          component={BovineTableScreen}
+        />
+        <Stack.Screen
+          options={{ headerShown: true }}
+          name={MainRoutes.SwineTable}
+          component={SwineTableScreen}
+        />
+        <Stack.Screen
+          options={{ headerShown: true }}
+          name={MainRoutes.GibletTable}
+          component={GibletsTableScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>

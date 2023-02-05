@@ -1,4 +1,4 @@
-import { ClientType } from '@sales-app/types';
+import { ClientType } from '@prisma/client';
 import {
   Validate,
   ValidatorConstraint,
@@ -8,7 +8,9 @@ import {
 @ValidatorConstraint({ name: 'IsValidClientType', async: false })
 class ClientTypeValidator implements ValidatorConstraintInterface {
   validate(type: ClientType): boolean {
-    return type === ClientType.Large || type === ClientType.Small;
+    return (
+      type === ClientType.LARGE_BUSINESS || type === ClientType.SMALL_BUSINESS
+    );
   }
   defaultMessage(): string {
     return 'Insert a valid client type';

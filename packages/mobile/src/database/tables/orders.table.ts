@@ -7,6 +7,7 @@ type OrderTableColumnsType = {
 };
 
 const OrderTableColumns: OrderTableColumnsType[] = [
+  { name: OrderColumns.serverId, type: 'number' },
   { name: OrderColumns.clientId, type: 'number' },
   { name: OrderColumns.estimatedOrderPrice, type: 'number' },
   { name: OrderColumns.orderTotalPrice, type: 'number' },

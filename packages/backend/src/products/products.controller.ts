@@ -7,6 +7,7 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
+import { ProductCategory } from '@prisma/client';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { ProductsService } from './products.service';
@@ -21,17 +22,20 @@ export class ProductsController {
   }
 
   @Get()
-  getAllProducts(@Query('category') category: string) {
+  getAllProducts(@Query('category') category: ProductCategory) {
     return this.products.get(category);
   }
 
   @Put()
-  updateProduct(@Query('id') id: string, @Body() body: UpdateProductDto) {
-    return this.products.update(parseInt(id), body);
+  updateProduct(
+    @Query('server_id') server_id: string,
+    @Body() body: UpdateProductDto
+  ) {
+    return this.products.update(parseInt(server_id), body);
   }
 
   @Delete()
-  deleteProduct(@Query('id') id: string) {
-    return this.products.delete(parseInt(id));
+  deleteProduct(@Query('server_id') server_id: string) {
+    return this.products.delete(parseInt(server_id));
   }
 }

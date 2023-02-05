@@ -8,7 +8,8 @@ export type CreateOrderProductType = {
 };
 
 export type UpdateOrderProductType = {
-  id?: number;
+  server_id?: number;
+  id?: string;
   notes?: string;
   product_id: number;
   negotiated_price: number;

@@ -75,9 +75,10 @@ type FontWeight =
 
 type TextAlign = 'center' | 'left' | 'right' | 'justify';
 type TextTransform = 'capitalize' | 'uppercase' | 'lowercase' | 'none';
+type FontFamilyTypes = 'Montserrat';
 
 export type FontTypes = {
-  family: { [key: string]: FontFamily };
+  family: { [key in FontFamilyTypes]: FontFamily };
   size: { [key: string]: FontSize };
   weight: { [key: string]: FontWeight };
   alignment: { [key: string]: TextAlign };

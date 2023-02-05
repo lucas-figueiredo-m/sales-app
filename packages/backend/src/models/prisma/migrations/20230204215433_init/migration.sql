@@ -1,6 +1,7 @@
 -- CreateTable
 CREATE TABLE "Employee" (
-    "id" SERIAL NOT NULL,
+    "server_id" SERIAL NOT NULL,
+    "id" TEXT,
     "first_name" TEXT NOT NULL,
     "last_name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
@@ -9,12 +10,13 @@ CREATE TABLE "Employee" (
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    CONSTRAINT "Employee_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "Employee_pkey" PRIMARY KEY ("server_id")
 );
 
 -- CreateTable
 CREATE TABLE "Client" (
-    "id" SERIAL NOT NULL,
+    "server_id" SERIAL NOT NULL,
+    "id" TEXT,
     "employee_id" INTEGER NOT NULL,
     "company_name" TEXT NOT NULL,
     "trade_name" TEXT NOT NULL,
@@ -31,12 +33,13 @@ CREATE TABLE "Client" (
     "updated_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "active" BOOLEAN NOT NULL DEFAULT true,
 
-    CONSTRAINT "Client_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "Client_pkey" PRIMARY KEY ("server_id")
 );
 
 -- CreateTable
 CREATE TABLE "Products" (
-    "id" SERIAL NOT NULL,
+    "server_id" SERIAL NOT NULL,
+    "id" TEXT,
     "name" TEXT NOT NULL,
     "price" INTEGER NOT NULL,
     "category" TEXT NOT NULL,
@@ -44,23 +47,25 @@ CREATE TABLE "Products" (
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    CONSTRAINT "Products_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "Products_pkey" PRIMARY KEY ("server_id")
 );
 
 -- CreateTable
 CREATE TABLE "HistoricalProductPrice" (
-    "id" SERIAL NOT NULL,
+    "server_id" SERIAL NOT NULL,
+    "id" TEXT NOT NULL,
     "product_id" INTEGER NOT NULL,
     "price" INTEGER NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    CONSTRAINT "HistoricalProductPrice_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "HistoricalProductPrice_pkey" PRIMARY KEY ("server_id")
 );
 
 -- CreateTable
 CREATE TABLE "Orders" (
-    "id" SERIAL NOT NULL,
+    "server_id" SERIAL NOT NULL,
+    "id" TEXT,
     "client_id" INTEGER NOT NULL,
     "status" TEXT NOT NULL,
     "estimated_order_price" DOUBLE PRECISION NOT NULL,
@@ -68,12 +73,13 @@ CREATE TABLE "Orders" (
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    CONSTRAINT "Orders_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "Orders_pkey" PRIMARY KEY ("server_id")
 );
 
 -- CreateTable
 CREATE TABLE "OrderItems" (
-    "id" SERIAL NOT NULL,
+    "server_id" SERIAL NOT NULL,
+    "id" TEXT,
     "order_id" INTEGER NOT NULL,
     "product_id" INTEGER NOT NULL,
     "table_price" INTEGER NOT NULL,
@@ -86,7 +92,7 @@ CREATE TABLE "OrderItems" (
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    CONSTRAINT "OrderItems_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "OrderItems_pkey" PRIMARY KEY ("server_id")
 );
 
 -- CreateIndex
@@ -102,16 +108,16 @@ CREATE UNIQUE INDEX "Client_taxpayer_id_key" ON "Client"("taxpayer_id");
 CREATE INDEX "Products_category_idx" ON "Products"("category");
 
 -- AddForeignKey
-ALTER TABLE "Client" ADD CONSTRAINT "Client_employee_id_fkey" FOREIGN KEY ("employee_id") REFERENCES "Employee"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Client" ADD CONSTRAINT "Client_employee_id_fkey" FOREIGN KEY ("employee_id") REFERENCES "Employee"("server_id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "HistoricalProductPrice" ADD CONSTRAINT "HistoricalProductPrice_product_id_fkey" FOREIGN KEY ("product_id") REFERENCES "Products"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "HistoricalProductPrice" ADD CONSTRAINT "HistoricalProductPrice_product_id_fkey" FOREIGN KEY ("product_id") REFERENCES "Products"("server_id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Orders" ADD CONSTRAINT "Orders_client_id_fkey" FOREIGN KEY ("client_id") REFERENCES "Client"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Orders" ADD CONSTRAINT "Orders_client_id_fkey" FOREIGN KEY ("client_id") REFERENCES "Client"("server_id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "OrderItems" ADD CONSTRAINT "OrderItems_order_id_fkey" FOREIGN KEY ("order_id") REFERENCES "Orders"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "OrderItems" ADD CONSTRAINT "OrderItems_order_id_fkey" FOREIGN KEY ("order_id") REFERENCES "Orders"("server_id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "OrderItems" ADD CONSTRAINT "OrderItems_product_id_fkey" FOREIGN KEY ("product_id") REFERENCES "Products"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "OrderItems" ADD CONSTRAINT "OrderItems_product_id_fkey" FOREIGN KEY ("product_id") REFERENCES "Products"("server_id") ON DELETE CASCADE ON UPDATE CASCADE;

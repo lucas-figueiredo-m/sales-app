@@ -1,3 +1,4 @@
+import { ClientType } from '@prisma/client';
 import { CreateClient } from '@sales-app/types';
 import {
   IsMobilePhone,
@@ -34,7 +35,7 @@ export class CreateClientDto implements CreateClient {
 
   @IsNotEmpty()
   @IsValidClientType()
-  type: string;
+  type: ClientType;
 
   number: string;
 

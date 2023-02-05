@@ -11,17 +11,19 @@ import { useTheme } from '@mobile/hooks';
 interface Props {
   onLeftPress: () => void;
   label: Translation;
-  icon?: React.ReactNode;
+  icon?: string;
 }
 
-export const Header: React.FC<Props> = ({ onLeftPress, label }) => {
+export const Header: React.FC<Props> = ({ onLeftPress, label, icon }) => {
   const { Font, Layout } = useTheme();
 
   return (
     <View style={Layout.rows.verticalCenter}>
-      <Pressable onPress={onLeftPress} hitSlop={defaultHitSlop}>
-        {/* <SVG xml={icon as string} width={30} height={30} color={Colors.Black} /> */}
-      </Pressable>
+      {icon && (
+        <Pressable onPress={onLeftPress} hitSlop={defaultHitSlop}>
+          <SVG xml={icon} width={30} height={30} color={Colors.Black} />
+        </Pressable>
+      )}
       <Label.H3 t={label} style={Font.transform.uppercase} />
     </View>
   );

@@ -40,6 +40,12 @@ export const Colors2 = {
       Blur: Pallete.MediumGrey,
       Background: Pallete.White,
     },
+    Cards: {
+      Background: Pallete.White,
+    },
+    Header: {
+      Tint: Pallete.Black,
+    },
   },
   light: {
     CommonColors,
@@ -48,6 +54,12 @@ export const Colors2 = {
       Error: Pallete.DarkRed,
       Blur: Pallete.MediumGrey,
       Background: Pallete.White,
+    },
+    Cards: {
+      Background: Pallete.White,
+    },
+    Header: {
+      Tint: Pallete.Black,
     },
   },
 };

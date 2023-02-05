@@ -34,6 +34,8 @@
     "react-native-keychain": "*",
     "axios-logger": "*",
     "react-native-permissions": "*",
-    "jwt-decode": "*"
+    "jwt-decode": "*",
+    "@shopify/flash-list": "*",
+    "@react-navigation/elements": "*"
   }
 }

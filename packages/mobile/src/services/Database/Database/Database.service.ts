@@ -9,6 +9,9 @@ import {
   DatabaseChangeSet,
   SyncPullParams,
   SyncPullResult,
+  SyncPushParams,
+  TableChangeSet,
+  Tables,
 } from '@mobile/types';
 
 class DatabaseClass {
@@ -24,16 +27,44 @@ class DatabaseClass {
     });
   }
 
-  private async processPullChanges() {
-    return;
+  process;
+
+  private processPullChanges({
+    changes,
+    timestamp,
+  }: SyncPullResult): SyncPullResult {
+    const keys = Object.keys(changes) as Tables[];
+
+    const refactoredChanges = keys.reduce<DatabaseChangeSet>((prev, curr) => {
+      const item = changes[curr];
+      const created = item.created.map((created) => ({
+        ...created,
+        created_at: new Date(created.created_at).getTime(),
+        updated_at: new Date(created.updated_at).getTime(),
+      }));
+
+      const updated = item.updated.map((created) => ({
+        ...created,
+        created_at: new Date(created.created_at).getTime(),
+        updated_at: new Date(created.updated_at).getTime(),
+      }));
+
+      const entry: TableChangeSet<any> = {
+        created,
+        updated,
+        deleted: item.deleted,
+      };
+
+      return { ...prev, [curr]: entry };
+    }, {});
+
+    return { changes: refactoredChanges, timestamp };
   }
 
   private async processPushChanges() {
     return;
   }
-  // https://www.youtube.com/watch?v=dXrJKc4sULs
-  // TODO: finish implementation
-  // TODO: create endpoint
+
   private async pullChanges({
     lastPulledAt,
     migration,
@@ -45,25 +76,26 @@ class DatabaseClass {
       migration,
     };
 
-    const response = await this.http.get<SyncPullResult, SyncPullParams>(
-      '/sync',
-      {
-        params,
-      }
-    );
-    const { changes, timestamp } = response;
-    await this.processPullChanges();
-    return response;
+    const res = await this.http.get<SyncPullResult, SyncPullParams>('/sync', {
+      params,
+    });
+    // const { changes, timestamp } = res;
+    console.log('[TEST: ]', JSON.stringify(res.changes));
+    const { changes, timestamp } = this.processPullChanges(res);
+    return { changes, timestamp };
   }
-
-  // https://www.youtube.com/watch?v=dXrJKc4sULs
-  // TODO: finish implementation
-  // TODO: create endpoint
   private async pushChanges({
     changes,
     lastPulledAt,
   }: SyncPushArgs): Promise<void> {
-    await this.http.post<DatabaseChangeSet, void>('/sync', changes);
+    const params = {
+      lastPulledAt,
+    };
+    await this.http.post<DatabaseChangeSet, void, SyncPushParams>(
+      '/sync',
+      changes,
+      { params }
+    );
     this.processPushChanges();
   }
 }

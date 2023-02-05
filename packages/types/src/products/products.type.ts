@@ -1,8 +1,8 @@
-import { ProductCategories } from './products.enum';
+import { ClientType, ProductCategory } from '@prisma/client';
 
 export type CreateProductType = {
   name: string;
   price: number;
-  category: ProductCategories;
-  type: string;
+  category: ProductCategory;
+  type: ClientType;
 };

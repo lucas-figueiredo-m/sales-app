@@ -8,6 +8,7 @@ type HistoricalProductPriceTableColumnsType = {
 
 const HistoricalProductPriceTableColumns: HistoricalProductPriceTableColumnsType[] =
   [
+    { name: HistoricalProductPriceColumns.serverId, type: 'number' },
     { name: HistoricalProductPriceColumns.productId, type: 'number' },
     { name: HistoricalProductPriceColumns.price, type: 'number' },
     { name: HistoricalProductPriceColumns.createdAt, type: 'number' },

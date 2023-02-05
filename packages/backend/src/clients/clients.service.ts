@@ -54,14 +54,14 @@ export class ClientsService implements ClientInterface {
 
   async deactivateClient(client_id: number) {
     return await this.prisma.client.update({
-      where: { id: client_id },
+      where: { server_id: client_id },
       data: { active: false },
     });
   }
 
   async activateClient(client_id: number) {
     return await this.prisma.client.update({
-      where: { id: client_id },
+      where: { server_id: client_id },
       data: { active: true },
     });
   }

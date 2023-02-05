@@ -21,28 +21,31 @@ export class OrdersController {
   }
 
   @Get()
-  getOrderById(@Query('id') id: string) {
-    return this.ordersService.getById(parseInt(id));
+  getOrderById(@Query('server_id') server_id: string) {
+    return this.ordersService.getById(parseInt(server_id));
   }
 
   @Get('/client')
-  getClientOrders(@Query('id') id: string) {
-    return this.ordersService.getClientOrders(parseInt(id));
+  getClientOrders(@Query('server_id') server_id: string) {
+    return this.ordersService.getClientOrders(parseInt(server_id));
   }
 
   @Get('/employee')
-  getEmployeeOrders(@Query('id') id: string) {
-    return this.ordersService.getEmployeeOrders(parseInt(id));
+  getEmployeeOrders(@Query('server_id') server_id: string) {
+    return this.ordersService.getEmployeeOrders(parseInt(server_id));
   }
 
   @Delete()
-  deleteOrder(@Query('id') id: string) {
-    return this.ordersService.delete(parseInt(id));
+  deleteOrder(@Query('server_id') server_id: string) {
+    return this.ordersService.delete(parseInt(server_id));
   }
 
   @Put()
-  updateClientOrder(@Query('id') id: string, @Body() body: UpdateOrderDto) {
+  updateClientOrder(
+    @Query('server_id') server_id: string,
+    @Body() body: UpdateOrderDto
+  ) {
     // TODO: validate if client belongs to employee. Avoid cross-employee updates
-    return this.ordersService.update(parseInt(id), body);
+    return this.ordersService.update(parseInt(server_id), body);
   }
 }

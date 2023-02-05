@@ -16,7 +16,7 @@ export abstract class OrdersInterface {
   abstract delete(orderId: number): Promise<void>;
 
   protected abstract getProductsPriceListById(
-    productIdList: { id: number }[]
+    productIdList: { server_id: number }[]
   ): Promise<Pick<Products, 'id' & 'price'>>;
 
   protected abstract processOrderData(

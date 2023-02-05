@@ -1,4 +1,5 @@
-import { CreateProductType, ProductCategories } from '@sales-app/types';
+import { ClientType, ProductCategory } from '@prisma/client';
+import { CreateProductType } from '@sales-app/types';
 import { IsNotEmpty, IsNumber, IsString, Max, Min } from 'class-validator';
 import { IsValidClientType } from '../../validators';
 import { IsValidProductCategory } from '../../validators/product-category.validator';
@@ -16,9 +17,9 @@ export class CreateProductDto implements CreateProductType {
 
   @IsNotEmpty()
   @IsValidClientType()
-  type: string;
+  type: ClientType;
 
   @IsNotEmpty()
   @IsValidProductCategory()
-  category: ProductCategories;
+  category: ProductCategory;
 }

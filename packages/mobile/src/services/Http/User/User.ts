@@ -10,7 +10,7 @@ class UserClass {
       body
     );
 
-    this.http.setUserData(user.access_token, user.id);
+    this.http.setUserData(user.access_token, user.server_id);
 
     return user;
   }

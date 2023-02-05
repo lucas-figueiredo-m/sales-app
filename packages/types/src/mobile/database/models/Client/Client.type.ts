@@ -1,17 +1,18 @@
 export type Client = {
   id: string;
-  employeeId: number;
-  companyName: string;
-  tradeName: string;
-  taxpayerId: string;
+  server_id: number;
+  employee_id: number;
+  company_name: string;
+  trade_name: string;
+  taxpayer_id: string;
   type: string;
-  buyerFirstName: string;
-  buyerLastName: string;
+  buyer_first_name: string;
+  buyer_last_name: string;
   phone: string;
   address: string;
   number: string;
   complement: string;
-  zipCode: string;
+  zip_code: string;
   active: boolean;
 };
 

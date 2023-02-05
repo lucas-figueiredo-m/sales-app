@@ -7,6 +7,7 @@ type ClientTableColumnsType = {
 };
 
 const ClientTableColumns: ClientTableColumnsType[] = [
+  { name: ClientColumns.serverId, type: 'number' },
   { name: ClientColumns.employeeId, type: 'number' },
   { name: ClientColumns.companyName, type: 'string' },
   { name: ClientColumns.tradeName, type: 'string' },

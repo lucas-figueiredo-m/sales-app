@@ -1,7 +1,8 @@
 import { EmployeeDatabase } from '@sales-app/types';
 
 export class EmployeeDbDto implements EmployeeDatabase {
-  id: number;
+  server_id: number;
+  id?: string;
   first_name: string;
   last_name: string;
   email: string;

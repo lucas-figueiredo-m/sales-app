@@ -9,6 +9,9 @@ export enum MainRoutes {
   Login = 'Login',
   Splash = 'Splash',
   Settings = 'Settings',
+  BovineTable = 'BovineTable',
+  SwineTable = 'SwineTable',
+  GibletTable = 'GibletTable',
 }
 
 export type MainStackParams = {
@@ -18,6 +21,9 @@ export type MainStackParams = {
   [MainRoutes.Login]: undefined;
   [MainRoutes.Splash]: undefined;
   [MainRoutes.Settings]: undefined;
+  [MainRoutes.BovineTable]: undefined;
+  [MainRoutes.SwineTable]: undefined;
+  [MainRoutes.GibletTable]: undefined;
 };
 
 export type MainStackRoute<T extends MainRoutes> = RouteProp<

@@ -3,7 +3,10 @@ import { Employee } from '@sales-app/types';
 
 export class EmployeeDto implements Employee {
   @Expose()
-  id: number;
+  server_id: number;
+
+  @Expose()
+  id: string;
 
   @Expose()
   first_name: string;

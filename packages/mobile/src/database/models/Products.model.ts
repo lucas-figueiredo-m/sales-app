@@ -7,9 +7,10 @@ export class ProductModel extends Model {
   static table = Tables.Products;
 
   @field(ProductColumns.name) name!: string;
+  @text(ProductColumns.serverId) server_id!: number;
   @text(ProductColumns.price) price!: number;
   @text(ProductColumns.category) category!: string;
   @text(ProductColumns.type) type!: string;
-  @readonly @date(ProductColumns.createdAt) createdAt: number;
-  @readonly @date(ProductColumns.updatedAt) updatedAt: number;
+  @readonly @date(ProductColumns.createdAt) created_at: number;
+  @readonly @date(ProductColumns.updatedAt) updated_at: number;
 }

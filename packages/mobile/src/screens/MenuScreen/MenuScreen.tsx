@@ -20,6 +20,21 @@ export const MenuScreen: React.FC = () => {
         icon={Settings as unknown as string}
         onPress={() => navigate(MainRoutes.Settings)}
       />
+      <MenuItem
+        label={'Tabela Bovino'}
+        icon={Settings as unknown as string}
+        onPress={() => navigate(MainRoutes.BovineTable)}
+      />
+      <MenuItem
+        label={'Tabela Suíno'}
+        icon={Settings as unknown as string}
+        onPress={() => navigate(MainRoutes.SwineTable)}
+      />
+      <MenuItem
+        label={'Tabela Miúdos'}
+        icon={Settings as unknown as string}
+        onPress={() => navigate(MainRoutes.GibletTable)}
+      />
     </SafeAreaView>
   );
 };

@@ -5,18 +5,19 @@ import { date, field, readonly, text } from '@nozbe/watermelondb/decorators';
 export class OrderItems extends Model {
   static table = Tables.OrderItems;
 
-  @field(OrderItemColumns.orderId) orderId: number;
-  @field(OrderItemColumns.productId) productId: number;
-  @field(OrderItemColumns.tablePrice) tablePrice: number;
-  @field(OrderItemColumns.negotiatedPrice) negotiatedPrice: number;
-  @field(OrderItemColumns.orderedWeightInGrams) orderedWeightInGrams: number;
+  @field(OrderItemColumns.serverId) server_id!: number;
+  @field(OrderItemColumns.orderId) order_id: number;
+  @field(OrderItemColumns.productId) product_id: number;
+  @field(OrderItemColumns.tablePrice) table_price: number;
+  @field(OrderItemColumns.negotiatedPrice) negotiated_price: number;
+  @field(OrderItemColumns.orderedWeightInGrams) ordered_weight_in_grams: number;
   @field(OrderItemColumns.deliveredWeightInGrams)
-  deliveredWeightInGrams!: number;
+  delivered_weight_in_grams!: number;
   @field(OrderItemColumns.estimatedProductTotalPrice)
-  estimatedProductTotalPrice: number;
-  @field(OrderItemColumns.productTotalPrice) productTotalPrice!: number;
+  estimated_product_total_price: number;
+  @field(OrderItemColumns.productTotalPrice) product_totalPrice!: number;
   @text(OrderItemColumns.notes) notes!: string;
 
-  @readonly @date(OrderItemColumns.createdAt) createdAt: number;
-  @readonly @date(OrderItemColumns.updatedAt) updatedAt: number;
+  @readonly @date(OrderItemColumns.createdAt) created_at: number;
+  @readonly @date(OrderItemColumns.updatedAt) updated_at: number;
 }

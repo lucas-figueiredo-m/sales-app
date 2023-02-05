@@ -1,4 +1,4 @@
-import { ProductCategories } from '@sales-app/types';
+import { ProductCategory } from '@prisma/client';
 import {
   Validate,
   ValidatorConstraint,
@@ -7,11 +7,12 @@ import {
 
 @ValidatorConstraint({ name: 'IsValidCategory', async: false })
 class ValidProductCategoryValidator implements ValidatorConstraintInterface {
-  validate(category: ProductCategories): boolean {
+  validate(category: ProductCategory): boolean {
     return (
-      category === ProductCategories.Bovine ||
-      category === ProductCategories.Swine ||
-      category === ProductCategories.Chicken
+      category === ProductCategory.BOVINE ||
+      category === ProductCategory.SWINE ||
+      category === ProductCategory.GIBLETS ||
+      category === ProductCategory.CHICKEN
     );
   }
   defaultMessage(): string {

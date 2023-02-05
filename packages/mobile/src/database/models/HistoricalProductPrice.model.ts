@@ -5,8 +5,9 @@ import { date, field, readonly } from '@nozbe/watermelondb/decorators';
 export class HistoricalProductPrice extends Model {
   static table = Tables.HistoricalProductPrice;
 
-  @field(HistoricalProductPriceColumns.productId) productId: number;
+  @field(HistoricalProductPriceColumns.serverId) server_id!: number;
+  @field(HistoricalProductPriceColumns.productId) product_id: number;
   @field(HistoricalProductPriceColumns.price) price: number;
-  @readonly @date(HistoricalProductPriceColumns.createdAt) createdAt: number;
-  @readonly @date(HistoricalProductPriceColumns.updatedAt) updatedAt: number;
+  @readonly @date(HistoricalProductPriceColumns.createdAt) created_at: number;
+  @readonly @date(HistoricalProductPriceColumns.updatedAt) updated_at: number;
 }

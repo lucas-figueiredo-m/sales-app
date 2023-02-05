@@ -1,15 +1,18 @@
-import { StackNavigationProp } from '@react-navigation/stack'
+import { StackNavigationProp } from '@react-navigation/stack';
 
 export enum ClientRoutes {
-  Merchant = 'Merchant',
-  Employees = 'Employees'
+  MerchantData = 'MerchantData',
+  MerchantAddress = 'MerchantAddress',
+  MerchantBuyer = 'MerchantBuyer',
 }
 
 export type ClientParams = {
-  [ClientRoutes.Merchant]: undefined
-  [ClientRoutes.Employees]: undefined
-}
+  [ClientRoutes.MerchantData]: undefined;
+  [ClientRoutes.MerchantAddress]: undefined;
+  [ClientRoutes.MerchantBuyer]: undefined;
+};
 
-export type ClientNavigationProp<T extends ClientRoutes> = StackNavigationProp<ClientParams, T>
-
-export type MerchantNavigationProp = StackNavigationProp<ClientParams, ClientRoutes.Merchant>
+export type ClientNavigationProp<T extends ClientRoutes> = StackNavigationProp<
+  ClientParams,
+  T
+>;

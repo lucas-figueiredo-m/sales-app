@@ -15,13 +15,15 @@ export class OrdersService extends OrdersInterface {
     super();
   }
 
-  protected async getProductsPriceListById(productIdList: { id: number }[]) {
+  protected async getProductsPriceListById(
+    productIdList: { server_id: number }[]
+  ) {
     return await this.prisma.products.findMany({
       where: {
         OR: productIdList,
       },
       select: {
-        id: true,
+        server_id: true,
         price: true,
       },
     });
@@ -30,18 +32,18 @@ export class OrdersService extends OrdersInterface {
   protected async processOrderData(orderData: UpdateOrderProductType[]) {
     const productPriceList = await this.getProductsPriceListById(
       orderData.map((product) => ({
-        id: product.product_id,
+        server_id: product.product_id,
       }))
     );
 
     return orderData.map((product) => ({
-      ...(product.id && { id: product.id }),
+      ...(product.server_id && { server_id: product.server_id }),
       ...(product.notes && { notes: product.notes }),
       product_id: product.product_id,
       negotiated_price: product.negotiated_price,
       ordered_weight_in_grams: product.ordered_weight_in_grams,
       table_price: productPriceList.find(
-        (productPrice) => productPrice.id === product.product_id
+        (productPrice) => productPrice.server_id === product.product_id
       ).price,
       estimated_product_total_price:
         (product.negotiated_price * product.ordered_weight_in_grams) / 1000,
@@ -65,14 +67,14 @@ export class OrdersService extends OrdersInterface {
     await this.prisma.orderItems.createMany({
       data: processedOrderData.map((processedProduct) => ({
         ...processedProduct,
-        order_id: order.id,
+        order_id: order.server_id,
       })),
     });
   }
   async getById(orderId: number): Promise<OrderData> {
     return await this.prisma.orders.findFirst({
       where: {
-        id: orderId,
+        server_id: orderId,
       },
       include: {
         order_items: true,
@@ -116,14 +118,18 @@ export class OrdersService extends OrdersInterface {
   async update(order_id: number, orderData: UpdateOrderType): Promise<void> {
     const processedOrderData = await this.processOrderData(orderData.products);
 
-    const orderItemsToUpdate = processedOrderData.filter((order) => !!order.id);
-    const orderItemsToCreate = processedOrderData.filter((order) => !order.id);
+    const orderItemsToUpdate = processedOrderData.filter(
+      (order) => !!order.server_id
+    );
+    const orderItemsToCreate = processedOrderData.filter(
+      (order) => !order.server_id
+    );
 
     await this.prisma.$transaction([
       ...orderItemsToUpdate.map((product) =>
         this.prisma.orderItems.update({
           where: {
-            id: product.id,
+            server_id: product.server_id,
           },
           data: {
             negotiated_price: product.negotiated_price,
@@ -150,14 +156,14 @@ export class OrdersService extends OrdersInterface {
     });
 
     await this.prisma.orders.update({
-      where: { id: order_id },
+      where: { server_id: order_id },
       data: { estimated_order_price: sum._sum.estimated_product_total_price },
     });
   }
   async delete(orderId: number): Promise<void> {
     await this.prisma.orders.delete({
       where: {
-        id: orderId,
+        server_id: orderId,
       },
     });
   }
